@@ -1,25 +1,49 @@
-import React from 'react';
-import { ThemeProvider } from '@material-ui/styles';
-import { Provider } from 'react-redux';
+import React  from 'react'
+import App from 'next/app';
+import Head from 'next/head';
 
-import Header from "../src/components/Header";
-import Sidebar from "../src/components/Sidebar";
-import Footer from "../src/components/Footer";
+import { Provider } from 'react-redux'
 
-import { store } from '../src/store';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+
+import Header from '../src/components/Header'
+import Sidebar from '../src/components/Sidebar'
+import Footer from '../src/components/Footer'
+
+import { store } from '../src/store'
 import theme from '../theme'
 
-function App({ Component, pageProps }) {
-  return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <Header/>
-        <Sidebar/>
-        <Component {...pageProps} />
-        <Footer/>
-      </ThemeProvider>
-    </Provider>
-  )
-}
+export default class MyApp extends App {
+  componentDidMount() {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }
 
-export default App
+  render() {
+    const {Component, pageProps} = this.props;
+
+    return (
+      <React.Fragment>
+        <Head>
+          <title>Project COVID-19</title>
+          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
+        </Head>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline/>
+            <Header/>
+            <Sidebar/>
+            <Component {...pageProps} />
+            <Footer/>
+          </ThemeProvider>
+        </Provider>
+      </React.Fragment>
+    );
+  }
+}
