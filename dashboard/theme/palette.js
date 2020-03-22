@@ -18,6 +18,10 @@ export default {
     main: colors.blue['A400'],
     light: colors.blue['A400']
   },
+  sidebar: {
+    contrastText: white,
+    main: '#222a43',
+  },
   success: {
     contrastText: white,
     dark: colors.green[900],
