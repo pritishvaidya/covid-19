@@ -7,28 +7,36 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src/**/*.js pages/**/*.js",
-    "lint:fix": "eslint src/**/*.js pages/**/*.js --fix"
+    "lint:fix": "eslint src/**/*.js pages/**/*.js --fix",
+    "line-staged": "line-staged"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.7",
     "@material-ui/icons": "^4.9.1",
     "clsx": "latest",
+    "global": "^4.4.0",
     "next": "9.3.1",
     "react": "16.13.0",
     "react-dom": "16.13.0",
+    "react-redux": "^7.2.0",
     "redux": "^4.0.5"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.1",
     "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.3",
-    "prettier": "^2.0.1",
-    "react-redux": "^7.2.0"
+    "prettier": "^2.0.1"
   },
   "husky": {
     "hooks": {

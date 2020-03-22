@@ -1,0 +1,37 @@
+{
+    "extends": [
+        "airbnb",
+        "plugin:flowtype/recommended",
+        "prettier",
+        "prettier/flowtype",
+        "prettier/react"
+    ],
+    "plugins": ["react", "jsx-a11y", "import", "flowtype"],
+    "parser": "babel-eslint",
+    "globals": {
+        "expect": true,
+        "context": true,
+        "spy": true,
+        "stub": true,
+        "sinon": true,
+        "mount": true,
+        "shallow": true,
+        "render": true,
+        "mockStore": true,
+        "it": true,
+        "describe": true,
+        "fetch": true
+    },
+    "rules": {
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/jsx-props-no-spreading": 0
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        },
+        "flowtype": {
+            "onlyFilesWithFlowAnnotation": true
+        }
+    }
+}
