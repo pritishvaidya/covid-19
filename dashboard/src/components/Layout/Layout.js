@@ -14,7 +14,7 @@ function Layout(props) {
 
   const classes = useStyles();
 
-  const { handleSidebarOpen, handleSidebarClose, isDesktop, shouldOpenSidebar } = useLayout()
+  const { handleSidebarOpen, handleSidebarClose, isDesktop, shouldOpenSidebar, active, toggleTheme } = useLayout()
   return (
     <div
       className={clsx({
@@ -24,6 +24,8 @@ function Layout(props) {
     >
       <Header onSidebarOpen={handleSidebarOpen}/>
       <Sidebar
+        active={active}
+        toggleTheme={toggleTheme}
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}
         variant={isDesktop ? 'persistent' : 'temporary'}

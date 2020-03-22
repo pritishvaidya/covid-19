@@ -16,10 +16,14 @@
     "clsx": "latest",
     "global": "^4.4.0",
     "next": "9.3.1",
+    "ramda": "^0.27.0",
     "react": "16.13.0",
     "react-dom": "16.13.0",
     "react-redux": "^7.2.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
+    "reselect": "^4.0.0",
+    "seamless-immutable": "^7.1.4"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

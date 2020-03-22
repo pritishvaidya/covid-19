@@ -9,7 +9,8 @@ const styles = makeStyles(theme => ({
     alignItems: 'center',
     backgroundColor: theme.palette.sidebar.main,
     opacity: 0.96,
-    boxShadow: theme.shadow.primaryBoxShadow.boxShadow
+    boxShadow: theme.shadow.primaryBoxShadow.boxShadow,
+    borderRight: 0
   },
   root: {
     display: 'flex',

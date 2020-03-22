@@ -15,9 +15,6 @@ function Header() {
             className={classes.root}
     >
       <Toolbar>
-        <RouterLink>
-          <Brand/>
-        </RouterLink>
       </Toolbar>
     </AppBar>
   )

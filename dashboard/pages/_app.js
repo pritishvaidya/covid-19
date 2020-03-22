@@ -4,13 +4,14 @@ import Head from 'next/head'
 import document from 'global/document'
 
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Layout from '../src/components/Layout'
 
-import { store } from '../src/store'
+import configureStore from '../src/redux/configureStore'
 import theme from '../theme'
 
 export default class MyApp extends App {
@@ -24,7 +25,7 @@ export default class MyApp extends App {
 
   render () {
     const { Component, pageProps } = this.props
-
+    const { store, persistor } = configureStore()
     return (
       <>
         <Head>
@@ -35,9 +36,11 @@ export default class MyApp extends App {
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline/>
           <Provider store={store}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <PersistGate loading={null} persistor={persistor}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </PersistGate>
           </Provider>
         </ThemeProvider>
       </>
