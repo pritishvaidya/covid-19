@@ -7,10 +7,7 @@ import { Provider } from 'react-redux'
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-
-import Header from '../src/components/Header'
-import Sidebar from '../src/components/Sidebar'
-import Footer from '../src/components/Footer'
+import Layout from "../src/components/Layout";
 
 import { store } from '../src/store'
 import theme from '../theme'
@@ -33,16 +30,15 @@ export default class MyApp extends App {
           <title>Project COVID-19</title>
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
         </Head>
-        <Provider store={store}>
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline/>
-            <Header/>
-            <Sidebar/>
-            <Component {...pageProps} />
-            <Footer/>
+            <Provider store={store}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </Provider>
           </ThemeProvider>
-        </Provider>
       </React.Fragment>
     );
   }
