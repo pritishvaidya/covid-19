@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
   },
@@ -8,7 +8,16 @@ const useStyles = makeStyles(() => ({
     paddingLeft: 260,
   },
   content: {
-    height: "100%",
+    height: "calc(100vh - 56px)",
+    display: "flex",
+    flexFlow: "column",
+    justifyContent: "space-between",
+    [`${theme.breakpoints.up("xs")} and (orientation: landscape)`]: {
+      height: "calc(100vh - 48px)",
+    },
+    [theme.breakpoints.up("sm")]: {
+      height: "calc(100vh - 64px)",
+    },
   },
 }));
 
