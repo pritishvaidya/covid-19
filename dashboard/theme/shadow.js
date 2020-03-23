@@ -1,4 +1,4 @@
-import palette from './palette';
+import palette, {darkThemePalette} from './palette';
 import { hexToRgb } from "./utils";
 
 const blackColor = '#000'
@@ -9,7 +9,7 @@ export default {
       "0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.14), 0 7px 10px -5px rgba(" +
-      hexToRgb(palette.primary.main) +
+      hexToRgb(darkThemePalette.primary.main) +
       ",.4)"
   },
   successBoxShadow: {
@@ -17,7 +17,7 @@ export default {
       "0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.14), 0 7px 10px -5px rgba(" +
-      hexToRgb(palette.success.main) +
+      hexToRgb(darkThemePalette.success.main) +
       ",.4)"
   },
   infoBoxShadow: {
@@ -25,7 +25,7 @@ export default {
       "0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.14), 0 7px 10px -5px rgba(" +
-      hexToRgb(palette.info.main) +
+      hexToRgb(darkThemePalette.info.main) +
       ",.4)"
   },
   dangerBoxShadow: {
@@ -33,7 +33,7 @@ export default {
       "0 4px 20px 0 rgba(" +
       hexToRgb(blackColor) +
       ",.14), 0 7px 10px -5px rgba(" +
-      hexToRgb(palette.error.main) +
+      hexToRgb(darkThemePalette.error.main) +
       ",.4)"
   }
 };

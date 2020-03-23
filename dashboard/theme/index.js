@@ -1,19 +1,29 @@
-import { createMuiTheme } from '@material-ui/core';
+import { useMemo } from 'react'
+import {createMuiTheme} from '@material-ui/core';
 
-import palette from './palette';
+import { shallowEqual, useSelector } from "react-redux";
+import { selectMode } from "../src/selectors/app";
+
+import { darkThemePalette, lightThemePalette } from './palette';
 import typography from './typography';
 import shadow from "./shadow";
 import overrides from './overrides';
 
-const theme = createMuiTheme({
-  palette,
-  typography,
-  shadow,
-  overrides,
-  zIndex: {
-    appBar: 1200,
-    drawer: 1100
-  }
-});
+function setTheme () {
+  const mode = useSelector(selectMode, shallowEqual)
+  const palette = mode === 'dark' ? darkThemePalette : lightThemePalette
+  return useMemo(() => createMuiTheme({
+    palette,
+    typography,
+    shadow,
+    overrides,
+    zIndex: {
+      appBar: 1200,
+      drawer: 1100
+    }
+  }), [mode])
+}
 
-export default theme;
+export default setTheme;
+
+
