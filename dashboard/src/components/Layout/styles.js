@@ -1,15 +1,15 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
-    height: '100%',
+    height: "100%",
   },
   shiftContent: {
-    paddingLeft: 260
+    paddingLeft: 260,
   },
   content: {
-    height: '100%'
-  }
-}))
+    height: "100%",
+  },
+}));
 
-export default useStyles
+export default useStyles;
