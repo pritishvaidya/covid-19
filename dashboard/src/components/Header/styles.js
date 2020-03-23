@@ -2,7 +2,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const styles = makeStyles(theme => ({
   root: {
-    backgroundColor: theme.palette.main
+    backgroundColor: theme.palette.main,
+    alignItems: 'flex-end'
+  },
+  menuButton: {
+    padding: "12px"
   },
   flexGrow: {
     flexGrow: 1

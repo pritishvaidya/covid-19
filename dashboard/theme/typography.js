@@ -1,50 +1,50 @@
-import palette from './palette';
+import { darkThemePalette as palette } from './palette';
 
 export default {
   h1: {
-    color: palette.text.primary,
+    color: palette.text.main,
     fontWeight: 500,
     fontSize: '35px',
     letterSpacing: '-0.24px',
     lineHeight: '40px'
   },
   h2: {
-    color: palette.text.primary,
+    color: palette.text.main,
     fontWeight: 500,
     fontSize: '29px',
     letterSpacing: '-0.24px',
     lineHeight: '32px'
   },
   h3: {
-    color: palette.text.primary,
+    color: palette.text.main,
     fontWeight: 500,
     fontSize: '24px',
     letterSpacing: '-0.06px',
     lineHeight: '28px'
   },
   h4: {
-    color: palette.text.primary,
+    color: palette.text.main,
     fontWeight: 500,
     fontSize: '20px',
     letterSpacing: '-0.06px',
     lineHeight: '24px'
   },
   h5: {
-    color: palette.text.primary,
+    color: palette.text.main,
     fontWeight: 500,
     fontSize: '16px',
     letterSpacing: '-0.05px',
     lineHeight: '20px'
   },
   h6: {
-    color: palette.text.primary,
+    color: palette.text.main,
     fontWeight: 500,
     fontSize: '14px',
     letterSpacing: '-0.05px',
     lineHeight: '20px'
   },
   subtitle1: {
-    color: palette.text.primary,
+    color: palette.text.main,
     fontSize: '16px',
     letterSpacing: '-0.05px',
     lineHeight: '25px'
@@ -57,7 +57,7 @@ export default {
     lineHeight: '21px'
   },
   body1: {
-    color: palette.text.primary,
+    color: palette.text.main,
     fontSize: '14px',
     letterSpacing: '-0.05px',
     lineHeight: '21px'
@@ -69,7 +69,7 @@ export default {
     lineHeight: '18px'
   },
   button: {
-    color: palette.text.primary,
+    color: palette.text.main,
     fontSize: '14px'
   },
   caption: {

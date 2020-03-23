@@ -3,20 +3,10 @@ import Switch from "@material-ui/core/Switch";
 
 import useStyles from './styles'
 
-function Brand(props) {
-  const { active, toggle } = props
+function Brand() {
   const classes = useStyles();
   return (
     <div className={classes.logo}>
-      <div className={classes.switch}>
-        <Switch
-          color="secondary"
-          checked={active}
-          onChange={toggle}
-          name="themeChange"
-          inputProps={{ 'aria-label': 'theme change' }}
-        />
-      </div>
       <div>
         <a
           href="."

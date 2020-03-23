@@ -8,7 +8,7 @@ import useStyles from './styles'
 import { items } from './constants'
 
 function Sidebar (props) {
-  const { open, variant, onClose, active, toggleTheme, ...rest } = props;
+  const { open, variant, onClose, ...rest } = props;
   const classes = useStyles();
   return (
     <Drawer
@@ -18,7 +18,7 @@ function Sidebar (props) {
       open={open}
       variant={variant}
     >
-      <Brand toggle={toggleTheme} active={active}/>
+      <Brand/>
       <div
         {...rest}
         className={classes.root}

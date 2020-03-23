@@ -17,7 +17,7 @@ function Layout(props) {
   const classes = useStyles();
   const theme = setTheme()
 
-  const { handleSidebarOpen, handleSidebarClose, isDesktop, shouldOpenSidebar, active, toggleTheme } = useLayout()
+  const { handleSidebarOpen, handleSidebarClose, isDesktop, shouldOpenSidebar } = useLayout()
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -28,8 +28,6 @@ function Layout(props) {
       >
         <Header onSidebarOpen={handleSidebarOpen}/>
         <Sidebar
-          active={active}
-          toggleTheme={toggleTheme}
           onClose={handleSidebarClose}
           open={shouldOpenSidebar}
             variant={isDesktop ? 'persistent' : 'temporary'}

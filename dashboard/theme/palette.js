@@ -8,11 +8,6 @@ const palette = {
   white,
   icon: colors.blueGrey[600],
   divider: colors.grey[200],
-  text: {
-    primary: colors.blueGrey[900],
-    secondary: colors.blueGrey[600],
-    link: colors.blue[600]
-  },
   background: {
     default: '#F4F6F8',
     paper: white
@@ -53,6 +48,10 @@ const lightThemePalette = {
     main: colors.red[600],
     light: colors.red[400]
   },
+  text: {
+    contrastText: white,
+    main: colors.deepPurple['A200']
+  },
   sidebar: {
     contrastText: white,
     main: white
@@ -84,6 +83,10 @@ const darkThemePalette = {
   error: {
     contrastText: white,
     main: colors.red[900],
+  },
+  text: {
+    contrastText: white,
+    main: colors.deepPurple['A200']
   },
   sidebar: {
     contrastText: white,
