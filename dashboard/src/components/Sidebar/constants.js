@@ -2,12 +2,11 @@ import React from "react";
 
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import TextFieldsIcon from "@material-ui/icons/TextFields";
-import ImageIcon from "@material-ui/icons/Image";
-import AccountBoxIcon from "@material-ui/icons/AccountBox";
-import SettingsIcon from "@material-ui/icons/Settings";
-import LockOpenIcon from "@material-ui/icons/LockOpen";
+import RecoveredIcon from "@material-ui/icons/LocalHospital";
+import DeathIcon from "@material-ui/icons/Warning";
+import DailyIcon from "@material-ui/icons/Schedule";
+import CountriesIcon from "@material-ui/icons/Public";
+import LocationIcon from "@material-ui/icons/LocationOn";
 
 const items = [
   {
@@ -16,39 +15,34 @@ const items = [
     icon: <DashboardIcon />,
   },
   {
-    title: "Users",
-    href: "/users",
+    title: "Confirmed",
+    href: "/confirmed",
     icon: <PeopleIcon />,
   },
   {
-    title: "Products",
-    href: "/products",
-    icon: <ShoppingBasketIcon />,
+    title: "Recovered",
+    href: "/recovered",
+    icon: <RecoveredIcon />,
   },
   {
-    title: "Authentication",
-    href: "/sign-in",
-    icon: <LockOpenIcon />,
+    title: "Deaths",
+    href: "/deaths",
+    icon: <DeathIcon />,
   },
   {
-    title: "Typography",
-    href: "/typography",
-    icon: <TextFieldsIcon />,
+    title: "Daily",
+    href: "/daily",
+    icon: <DailyIcon />,
   },
   {
-    title: "Icons",
-    href: "/icons",
-    icon: <ImageIcon />,
+    title: "Countries",
+    href: "/countries",
+    icon: <CountriesIcon />,
   },
   {
-    title: "Account",
-    href: "/account",
-    icon: <AccountBoxIcon />,
-  },
-  {
-    title: "Settings",
-    href: "/settings",
-    icon: <SettingsIcon />,
+    title: "Map",
+    href: "/map",
+    icon: <LocationIcon />,
   },
 ];
 
