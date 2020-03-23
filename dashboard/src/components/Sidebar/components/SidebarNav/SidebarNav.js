@@ -10,7 +10,6 @@ const SidebarNav = props => {
   const { pages, className, ...rest } = props;
 
   const classes = useStyles();
-
   return (
     <List
       {...rest}
@@ -29,7 +28,7 @@ const SidebarNav = props => {
             to={page.href}
           >
             <div className={classes.icon}>{page.icon}</div>
-            {page.title}
+            <div className={classes.title}>{page.title}</div>
           </Button>
         </ListItem>
       ))}

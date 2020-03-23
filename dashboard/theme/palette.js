@@ -17,10 +17,6 @@ const palette = {
     default: '#F4F6F8',
     paper: white
   },
-  sidebar: {
-    contrastText: white,
-    main: '#222a43',
-  },
 }
 
 const lightThemePalette = {
@@ -60,7 +56,7 @@ const lightThemePalette = {
   sidebar: {
     contrastText: white,
     main: white
-  }
+  },
 }
 
 const darkThemePalette = {
