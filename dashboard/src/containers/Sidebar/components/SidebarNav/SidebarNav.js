@@ -1,26 +1,19 @@
-import React from 'react'
-import clsx from 'clsx';
-import { List, ListItem, Button } from '@material-ui/core';
+import React from "react";
+import clsx from "clsx";
+import { List, ListItem, Button } from "@material-ui/core";
 
 import CustomRouterLink from "./RouterLink";
 
-import useStyles from './styles'
+import useStyles from "./styles";
 
-const SidebarNav = props => {
+const SidebarNav = (props) => {
   const { pages, className, ...rest } = props;
 
   const classes = useStyles();
   return (
-    <List
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      {pages.map(page => (
-        <ListItem
-          className={classes.item}
-          disableGutters
-          key={page.title}
-        >
+    <List {...rest} className={clsx(classes.root, className)}>
+      {pages.map((page) => (
+        <ListItem className={classes.item} disableGutters key={page.title}>
           <Button
             activeClassName={classes.active}
             className={classes.button}
@@ -36,4 +29,4 @@ const SidebarNav = props => {
   );
 };
 
-export default SidebarNav
+export default SidebarNav;

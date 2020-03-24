@@ -1,19 +1,19 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles((theme) => ({
   logo: {
     padding: "13px 18px 13px 24px",
-    alignItems: 'center',
-    width: '100%'
+    alignItems: "center",
+    width: "100%",
   },
   switch: {
     display: "flex",
-    justifyContent: 'flex-end'
+    justifyContent: "flex-end",
   },
   logoLink: {
     display: "flex",
-    flexFlow: 'column',
-    alignItems: 'center',
+    flexFlow: "column",
+    alignItems: "center",
     textDecoration: "none",
   },
   logoText: {
@@ -22,8 +22,8 @@ const styles = makeStyles(theme => ({
     lineHeight: "30px",
     fontSize: "18px",
     "&,&:hover": {
-      color: theme.palette.white
-    }
+      color: theme.palette.white,
+    },
   },
   logoImage: {
     display: "inline-block",
@@ -32,7 +32,7 @@ const styles = makeStyles(theme => ({
   img: {
     width: "50px",
     verticalAlign: "middle",
-    border: "0"
+    border: "0",
   },
 }));
 

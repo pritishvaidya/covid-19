@@ -23,7 +23,7 @@ const Footer = (props) => {
         . 2020
       </Typography>
       <Typography variant="caption">
-        Created with love for the humanity. By a devloper who loves to work
+        Created with love for the humanity. By a developer who loves to work
         remotely.
       </Typography>
     </div>
