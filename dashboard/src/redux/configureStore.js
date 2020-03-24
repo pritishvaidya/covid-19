@@ -1,18 +1,19 @@
-import window from 'global/window'
-import { createStore, compose } from 'redux'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import window from "global/window";
+import { createStore, compose } from "redux";
+import thunkMiddleware from "redux-thunk";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 import transform from "./transform";
-import rootReducer from './reducer'
+import rootReducer from "./reducer";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
   transforms: [transform],
-}
+};
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default () => {
   let composeEnhancers = compose;
@@ -23,7 +24,10 @@ export default () => {
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
   }
 
-  const store = createStore(persistedReducer, composeEnhancers())
-  const persistor = persistStore(store)
-  return { store, persistor }
-}
+  const store = createStore(
+    persistedReducer,
+    composeEnhancers(thunkMiddleware)
+  );
+  const persistor = persistStore(store);
+  return { store, persistor };
+};
