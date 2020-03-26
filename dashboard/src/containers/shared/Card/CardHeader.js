@@ -4,28 +4,28 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import header from "../../../../theme/header";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   cardHeader: {
     padding: "0.75rem 1.25rem",
     marginBottom: "0",
     borderBottom: "none",
     background: "transparent",
     zIndex: "3 !important",
-    "&$cardHeaderPlain,&$cardHeaderIcon,&$cardHeaderStats,&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader,&$roseCardHeader": {
+    "&$cardHeaderPlain,&$cardHeaderIcon,&$cardHeaderStats,&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader": {
       margin: "0 15px",
       padding: "0",
       position: "relative",
-      color: theme.palette.white
+      color: theme.palette.white,
     },
     "&:first-child": {
-      borderRadius: "calc(.25rem - 1px) calc(.25rem - 1px) 0 0"
+      borderRadius: "calc(.25rem - 1px) calc(.25rem - 1px) 0 0",
     },
-    "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader,&$roseCardHeader": {
+    "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader": {
       "&:not($cardHeaderIcon)": {
         borderRadius: "3px",
         marginTop: "-20px",
-        padding: "15px"
-      }
+        padding: "15px",
+      },
     },
     "&$cardHeaderStats svg": {
       fontSize: "36px",
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
       textAlign: "center",
       width: "36px",
       height: "36px",
-      margin: "10px 10px 4px"
+      margin: "10px 10px 4px",
     },
     "&$cardHeaderStats i,&$cardHeaderStats .material-icons": {
       fontSize: "36px",
@@ -42,73 +42,73 @@ const useStyles = makeStyles(theme => ({
       height: "56px",
       textAlign: "center",
       overflow: "unset",
-      marginBottom: "1px"
+      marginBottom: "1px",
     },
     "&$cardHeaderStats$cardHeaderIcon": {
-      textAlign: "right"
-    }
+      textAlign: "right",
+    },
   },
   cardHeaderPlain: {
     marginLeft: "0px !important",
-    marginRight: "0px !important"
+    marginRight: "0px !important",
   },
   cardHeaderStats: {
     "& $cardHeaderIcon": {
-      textAlign: "right"
+      textAlign: "right",
     },
     "& h1,& h2,& h3,& h4,& h5,& h6": {
-      margin: "0 !important"
-    }
+      margin: "0 !important",
+    },
   },
   cardHeaderIcon: {
-    "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader,&$roseCardHeader": {
+    "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader": {
       background: "transparent",
-      boxShadow: "none"
+      boxShadow: "none",
     },
     "& i,& .material-icons": {
       width: "33px",
       height: "33px",
       textAlign: "center",
-      lineHeight: "33px"
+      lineHeight: "33px",
     },
     "& svg": {
       width: "24px",
       height: "24px",
       textAlign: "center",
       lineHeight: "33px",
-      margin: "5px 4px 0px"
-    }
+      margin: "5px 4px 0px",
+    },
   },
   warningCardHeader: {
     color: theme.palette.white,
     "&:not($cardHeaderIcon)": {
-      ...header.warningCardHeader
-    }
+      ...header.warningCardHeader,
+    },
   },
   successCardHeader: {
     color: theme.palette.white,
     "&:not($cardHeaderIcon)": {
-      ...header.successCardHeader
-    }
+      ...header.successCardHeader,
+    },
   },
   dangerCardHeader: {
     color: theme.palette.white,
     "&:not($cardHeaderIcon)": {
-      ...header.dangerCardHeader
-    }
+      ...header.dangerCardHeader,
+    },
   },
   infoCardHeader: {
     color: theme.palette.white,
     "&:not($cardHeaderIcon)": {
-      ...header.infoCardHeader
-    }
+      ...header.infoCardHeader,
+    },
   },
   primaryCardHeader: {
     color: theme.palette.white,
     "&:not($cardHeaderIcon)": {
-      ...header.primaryCardHeader
-    }
-  }
+      ...header.primaryCardHeader,
+    },
+  },
 }));
 
 export default function CardHeader(props) {
@@ -121,7 +121,7 @@ export default function CardHeader(props) {
     [classes.cardHeaderPlain]: plain,
     [classes.cardHeaderStats]: stats,
     [classes.cardHeaderIcon]: icon,
-    [className]: className !== undefined
+    [className]: className !== undefined,
   });
   return (
     <div className={cardHeaderClasses} {...rest}>

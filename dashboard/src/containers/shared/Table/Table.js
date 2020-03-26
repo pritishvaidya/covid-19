@@ -1,10 +1,12 @@
 import React from "react";
+import clsx from "clsx";
 
 import MaterialTable from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -69,12 +71,45 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
     verticalAlign: "middle",
   },
+  rootTableSortLabel: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontWeight: "300",
+    lineHeight: "1.5em",
+    color: `${theme.palette.primary.main} !important`,
+  },
+  activeTableSortLabel: {
+    color: `${theme.palette.primary.main} !important`,
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: "rect(0 0 0 0)",
+    height: 1,
+    margin: -1,
+    overflow: "hidden",
+    padding: 0,
+    position: "absolute",
+    top: 20,
+    width: 1,
+  },
 }));
 
 export default function Table(props) {
-  const { tableHead, tableData, tableHeaderColor } = props;
+  const {
+    tableHead,
+    tableData,
+    tableHeaderColor,
+    order,
+    orderBy,
+    onRequestSort,
+    formatValue,
+  } = props;
 
   const classes = useStyles();
+
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
+
   return (
     <div className={classes.tableResponsive}>
       <MaterialTable className={classes.table}>
@@ -87,7 +122,24 @@ export default function Table(props) {
                     className={classes.tableCell + " " + classes.tableHeadCell}
                     key={key}
                   >
-                    {prop}
+                    <TableSortLabel
+                      classes={{
+                        root: classes.rootTableSortLabel,
+                        icon: classes.activeTableSortLabel,
+                      }}
+                      active={orderBy === key}
+                      direction={orderBy === key ? order : "asc"}
+                      onClick={createSortHandler(key)}
+                    >
+                      {prop}
+                      {orderBy === key ? (
+                        <span className={classes.visuallyHidden}>
+                          {order === "desc"
+                            ? "sorted descending"
+                            : "sorted ascending"}
+                        </span>
+                      ) : null}
+                    </TableSortLabel>
                   </TableCell>
                 );
               })}
@@ -101,7 +153,7 @@ export default function Table(props) {
                 {prop.map((prop, key) => {
                   return (
                     <TableCell className={classes.tableCell} key={key}>
-                      {prop}
+                      {formatValue(prop, key)}
                     </TableCell>
                   );
                 })}

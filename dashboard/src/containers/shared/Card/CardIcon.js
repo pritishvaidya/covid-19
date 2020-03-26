@@ -4,16 +4,16 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import header from "../../../../theme/header";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   cardIcon: {
-    "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader,&$roseCardHeader": {
+    "&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader": {
       borderRadius: "3px",
       backgroundColor: theme.palette.gray,
       padding: "15px",
       marginTop: "-20px",
       marginRight: "15px",
-      float: "left"
-    }
+      float: "left",
+    },
   },
   warningCardHeader: header.warningCardHeader,
   successCardHeader: header.successCardHeader,
@@ -29,7 +29,7 @@ export default function CardIcon(props) {
   const cardIconClasses = clsx({
     [classes.cardIcon]: true,
     [classes[color + "CardHeader"]]: color,
-    [className]: className !== undefined
+    [className]: className !== undefined,
   });
   return (
     <div className={cardIconClasses} {...rest}>

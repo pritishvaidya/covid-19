@@ -14,7 +14,16 @@ import useCountries from "../../hooks/countries";
 
 function Countries() {
   const classes = useStyles();
-  const { rsf, rows } = useCountries();
+  const {
+    order,
+    orderBy,
+    formatValue,
+    handleRequestSort,
+    stableSort,
+    getComparator,
+    rsf,
+    rows,
+  } = useCountries();
 
   if (rsf) {
     return <Overlay />;
@@ -32,17 +41,23 @@ function Countries() {
           </CardHeader>
           <CardBody>
             <Table
+              order={order}
+              orderBy={orderBy}
               tableHeaderColor="primary"
               tableHead={[
+                "ID",
+                "Updated At",
+                "Code",
                 "Country",
-                "Country Code",
-                "Last Updated",
+                "Province",
                 "Population",
                 "Confirmed",
                 "Deaths",
                 "Recovered",
               ]}
-              tableData={rows}
+              tableData={stableSort(rows, getComparator(order, orderBy))}
+              formatValue={formatValue}
+              onRequestSort={handleRequestSort}
             />
           </CardBody>
         </Card>
