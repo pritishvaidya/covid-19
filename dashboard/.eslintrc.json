@@ -1,6 +1,5 @@
 {
     "extends": [
-        "airbnb",
         "plugin:flowtype/recommended",
         "prettier",
         "prettier/flowtype",
@@ -27,7 +26,21 @@
         "react/jsx-props-no-spreading": 0,
         "react/prop-types": 0,
         "no-param-reassign": 0,
-        "import/prefer-default-export": 0
+        "import/prefer-default-export": 0,
+        "import/no-unresolved": [
+            2,
+            { "caseSensitive": false }
+        ],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ]
     },
     "settings": {
         "react": {

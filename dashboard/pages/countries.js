@@ -1,9 +1,9 @@
 import React from "react";
 
-import Container from "@material-ui/core/Container";
+import Countries from "../src/containers/Countries/Countries";
 
 function CountriesPage() {
-  return <Container />;
+  return <Countries />;
 }
 
 export default CountriesPage;
