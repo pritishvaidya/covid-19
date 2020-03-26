@@ -1,14 +1,12 @@
 import React from "react";
-import { Map, GoogleApiWrapper } from "google-maps-react";
-
-import Loading from "./components/Loading";
+import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 
 import useMaps from "../../hooks/maps";
 
 function Maps(props) {
   const { google } = props;
 
-  const { latitude, longitude } = useMaps();
+  const { latitude = 34.0479, longitude = 100.6197, locations } = useMaps();
 
   return (
     <Map
@@ -24,21 +22,28 @@ function Maps(props) {
         width: "100%",
         height: "calc(100vh - 64px)",
       }}
-      initialCenter={{
-        lat: 34.0479,
-        lng: 100.6197,
-      }}
       center={{
         lat: latitude,
         lng: longitude,
       }}
       google={google}
       zoom={5}
-    />
+    >
+      {locations.map((location) => (
+        <Marker
+          id={location.id}
+          position={{
+            lat: location.coordinates.latitude,
+            lng: location.coordinates.longitude,
+          }}
+          name={location.country}
+          title={`Confirmed: ${location.latest.confirmed} \nDeaths: ${location.latest.deaths} \nRecovered: ${location.latest.recovered}`}
+        />
+      ))}
+    </Map>
   );
 }
 
 export default GoogleApiWrapper({
-  apiKey: process.env.GOOGLE_API_KEY,
-  LoadingContainer: Loading,
+  apiKey: "AIzaSyCrZ24gY6nFgA8ymT56pDBO1o1WlSTtZ3E",
 })(Maps);

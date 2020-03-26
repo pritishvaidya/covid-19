@@ -1,6 +1,11 @@
 /* eslint-disable */
 import { useState, useEffect } from "react";
 
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { fetchLocations } from "../redux/actions/maps";
+
+import { selectLocations } from "../selectors/maps";
+
 const defaultSettings = {
   enableHighAccuracy: false,
   timeout: Infinity,
@@ -10,6 +15,11 @@ const defaultSettings = {
 const useMaps = (watch = false, settings = defaultSettings) => {
   const [position, setPosition] = useState({});
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+
+  const { locations, rsf } = useSelector(selectLocations, shallowEqual);
+
+  console.log(locations, rsf);
 
   const onChange = ({ coords, timestamp }) => {
     setPosition({
@@ -23,6 +33,10 @@ const useMaps = (watch = false, settings = defaultSettings) => {
   const onError = (error) => {
     setError(error.message);
   };
+
+  useEffect(() => {
+    dispatch(fetchLocations());
+  }, []);
 
   useEffect(() => {
     const geo = navigator.geolocation;
@@ -41,7 +55,7 @@ const useMaps = (watch = false, settings = defaultSettings) => {
     return () => watcher && geo.clearWatch(watcher);
   }, [settings]);
 
-  return { ...position, error };
+  return { ...position, error, rsf, locations };
 };
 
 export default useMaps;

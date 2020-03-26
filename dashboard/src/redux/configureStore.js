@@ -1,5 +1,5 @@
 import window from "global/window";
-import { createStore, compose } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -26,7 +26,7 @@ export default () => {
 
   const store = createStore(
     persistedReducer,
-    composeEnhancers(thunkMiddleware)
+    composeEnhancers(applyMiddleware(thunkMiddleware))
   );
   const persistor = persistStore(store);
   return { store, persistor };
