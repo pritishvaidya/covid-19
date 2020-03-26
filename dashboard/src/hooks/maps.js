@@ -19,8 +19,6 @@ const useMaps = (watch = false, settings = defaultSettings) => {
 
   const { locations, rsf } = useSelector(selectLocations, shallowEqual);
 
-  console.log(locations, rsf);
-
   const onChange = ({ coords, timestamp }) => {
     setPosition({
       latitude: coords.latitude,

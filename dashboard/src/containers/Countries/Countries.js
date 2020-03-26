@@ -6,11 +6,19 @@ import Card from "../shared/Card/Card";
 import CardHeader from "../shared/Card/CardHeader";
 import CardBody from "../shared/Card/CardBody";
 import Table from "../shared/Table/Table";
+import Overlay from "../Overlay";
 
 import useStyles from "./styles";
 
+import useCountries from "../../hooks/countries";
+
 function Countries() {
   const classes = useStyles();
+  const { rsf, rows } = useCountries();
+
+  if (rsf) {
+    return <Overlay />;
+  }
 
   return (
     <GridContainer>
@@ -25,15 +33,16 @@ function Countries() {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"],
+              tableHead={[
+                "Country",
+                "Country Code",
+                "Last Updated",
+                "Population",
+                "Confirmed",
+                "Deaths",
+                "Recovered",
               ]}
+              tableData={rows}
             />
           </CardBody>
         </Card>

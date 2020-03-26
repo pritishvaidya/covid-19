@@ -1,5 +1,6 @@
 import React from "react";
-import clsx from "clsx";
+
+import Spinner from "../Spinner";
 
 import useStyles from "./styles";
 
@@ -9,11 +10,7 @@ function Overlay() {
     <div className={classes.root}>
       <div className={classes.overlay} />
       <div className={classes.logoRoot}>
-        <img
-          src="/logo.svg"
-          alt="logo"
-          className={clsx(classes.logo, "MuiCircularProgress-indeterminate")}
-        />
+        <Spinner />
       </div>
     </div>
   );
