@@ -151,10 +151,7 @@ export default function Table(props) {
         <TableBody>
           {tableData.map((prop, key) => {
             return (
-              <Link
-                href="/countries/[id]"
-                as={`/countries/${prop[2]}/${prop[0]}`}
-              >
+              <Link href="/countries/[id]" as={`/countries/${prop[2]}`}>
                 <TableRow hover key={key} className={classes.tableBodyRow}>
                   {prop.map((prop, key) => {
                     return (

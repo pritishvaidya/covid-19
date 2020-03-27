@@ -9,7 +9,8 @@ const sources = () => api.get("/sources");
 const latest = () => api.get("/latest");
 
 const locations = () => api.get("/locations");
-const locationById = (id) => api.get(`/locations/${id}`);
+const locationById = (id) =>
+  api.get(`/locations?country_code=${id}&timelines=${1}`);
 
 const locationsByCountryCode = (code) =>
   api.get(`/locations?country_code=${code}`);

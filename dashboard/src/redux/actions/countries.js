@@ -58,8 +58,8 @@ function fetchCountry(id) {
         if (res.error) {
           throw res.error;
         }
-        dispatch(fetchCountrySuccess(res.location));
-        return res.location;
+        dispatch(fetchCountrySuccess(res.locations[0]));
+        return res.location[0];
       })
       .catch((error) => {
         dispatch(fetchCountryError(error));

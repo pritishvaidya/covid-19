@@ -10,7 +10,6 @@ function useCountry() {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const countryCode = query.id[0];
-  const countryId = query.id[1];
 
   const { country, rsf: countryRsf } = useSelector(selectCountry, shallowEqual);
   const { recovered, rsf: recoveredRsf } = useSelector(
@@ -19,9 +18,16 @@ function useCountry() {
   );
 
   useEffect(() => {
-    dispatch(fetchCountry(countryId));
+    dispatch(fetchCountry(countryCode));
     dispatch(fetchRecovered(countryCode));
   }, []);
+
+  return {
+    country,
+    countryRsf,
+    recovered,
+    recoveredRsf,
+  };
 }
 
 export default useCountry;
