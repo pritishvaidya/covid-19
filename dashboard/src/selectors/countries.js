@@ -13,5 +13,10 @@ const selectCountry = createSelector(selectCountriesDomain, (substate) => ({
   rsf: substate.countryRsf,
 }));
 
-export { selectCountry };
+const selectRecovered = createSelector(selectCountriesDomain, (substate) => ({
+  recovered: substate.recovered,
+  rsf: substate.recoveredRsf,
+}));
+
+export { selectCountry, selectRecovered };
 export default selectCountriesDomain;

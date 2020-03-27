@@ -4,12 +4,12 @@ const api = create({
   baseURL: "https://coronavirus-tracker-api.herokuapp.com/v2",
 });
 
-const sources = api.get("/sources");
+const sources = () => api.get("/sources");
 
-const latest = api.get("/latest");
+const latest = () => api.get("/latest");
 
-const locations = api.get("/locations");
-const locationById = (id) => api.get(`/location/${id}`);
+const locations = () => api.get("/locations");
+const locationById = (id) => api.get(`/locations/${id}`);
 
 const locationsByCountryCode = (code) =>
   api.get(`/locations?country_code=${code}`);

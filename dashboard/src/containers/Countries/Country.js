@@ -6,7 +6,7 @@ import useCountry from "../../hooks/country";
 
 function Country() {
   useCountry();
-  return <Container />;
+  return <Container/>;
 }
 
 export default Country;

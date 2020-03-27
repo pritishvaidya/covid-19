@@ -28,7 +28,7 @@ function fetchLocationsError(error) {
 function fetchLocations() {
   return async (dispatch) => {
     dispatch(fetchLocationsRequest());
-    locations
+    locations()
       .then((res) => res.data)
       .then((res) => {
         if (res.error) {
