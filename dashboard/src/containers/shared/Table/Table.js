@@ -9,6 +9,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 import { makeStyles } from "@material-ui/core/styles";
+import Link from "next/link";
 
 // core components
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
     display: "table-row",
     outline: "none",
     verticalAlign: "middle",
+    cursor: "pointer",
   },
   rootTableSortLabel: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
@@ -149,15 +151,17 @@ export default function Table(props) {
         <TableBody>
           {tableData.map((prop, key) => {
             return (
-              <TableRow key={key} className={classes.tableBodyRow}>
-                {prop.map((prop, key) => {
-                  return (
-                    <TableCell className={classes.tableCell} key={key}>
-                      {formatValue(prop, key)}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
+              <Link href="/countries/[id]" as={`/countries/${prop[0]}`}>
+                <TableRow hover key={key} className={classes.tableBodyRow}>
+                  {prop.map((prop, key) => {
+                    return (
+                      <TableCell className={classes.tableCell} key={key}>
+                        {formatValue(prop, key)}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              </Link>
             );
           })}
         </TableBody>
