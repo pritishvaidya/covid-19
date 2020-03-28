@@ -23,8 +23,8 @@ function Country() {
     <GridContainer>
       <GridItem xs={12} sm={6} md={3}>
         <Card>
-          <CardHeader color="warning" stats>
-            <h4 className={classes.cardTitleWhite}>Confirmed</h4>
+          <CardHeader color="primary">
+            <h2 className={classes.cardTitleWhite}>Confirmed</h2>
           </CardHeader>
         </Card>
       </GridItem>
