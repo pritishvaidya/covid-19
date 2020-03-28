@@ -1,12 +1,35 @@
 import React from "react";
 
-import Container from "@material-ui/core/Container";
-
 import useCountry from "../../hooks/country";
+import Overlay from "../Overlay";
+import GridContainer from "../shared/Grid/GridContainer";
+import GridItem from "../shared/Grid/GridItem";
+import Card from "../shared/Card/Card";
+import CardHeader from "../shared/Card/CardHeader";
+import CardIcon from "../shared/Card/CardIcon";
+import CardFooter from "../shared/Card/CardFooter";
+
+import useStyles from "./styles";
 
 function Country() {
-  useCountry();
-  return <Container />;
+  const { country, countryRsf, recovered, recoveredRsf } = useCountry();
+  const classes = useStyles();
+
+  if (countryRsf || recoveredRsf) {
+    return <Overlay />;
+  }
+
+  return (
+    <GridContainer>
+      <GridItem xs={12} sm={6} md={3}>
+        <Card>
+          <CardHeader color="warning" stats>
+            <h4 className={classes.cardTitleWhite}>Confirmed</h4>
+          </CardHeader>
+        </Card>
+      </GridItem>
+    </GridContainer>
+  );
 }
 
 export default Country;

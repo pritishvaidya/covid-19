@@ -9,6 +9,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import Layout from "../src/containers/Layout";
 import configureStore from "../src/redux/configureStore";
+import Overlay from "../src/containers/Overlay";
 
 function MyApp({ Component, pageProps }) {
   const { store, persistor } = configureStore();
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
+
   return (
     <>
       <Head>
@@ -31,7 +33,7 @@ function MyApp({ Component, pageProps }) {
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate loading={<Overlay />} persistor={persistor}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
@@ -40,5 +42,13 @@ function MyApp({ Component, pageProps }) {
     </>
   );
 }
+
+MyApp.getInitialProps = async ({ Component, ctx }) => {
+  return {
+    pageProps: Component.getInitialProps
+      ? await Component.getInitialProps(ctx)
+      : {},
+  };
+};
 
 export default MyApp;

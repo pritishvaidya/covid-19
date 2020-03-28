@@ -9,7 +9,7 @@ import { selectCountry, selectRecovered } from "../selectors/countries";
 function useCountry() {
   const dispatch = useDispatch();
   const { query } = useRouter();
-  const countryCode = query.id[0];
+  const countryCode = "AU" || query.id[0];
 
   const { country, rsf: countryRsf } = useSelector(selectCountry, shallowEqual);
   const { recovered, rsf: recoveredRsf } = useSelector(

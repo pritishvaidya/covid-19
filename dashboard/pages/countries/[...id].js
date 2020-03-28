@@ -6,8 +6,4 @@ function CountryPage() {
   return <Country />;
 }
 
-export async function getServerSideProps() {
-  return { props: {} };
-}
-
 export default CountryPage;

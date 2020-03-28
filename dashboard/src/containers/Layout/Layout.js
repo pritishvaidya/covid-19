@@ -23,6 +23,7 @@ function Layout(props) {
     isDesktop,
     shouldOpenSidebar,
   } = useLayout();
+  console.log(children);
   return (
     <ThemeProvider theme={theme}>
       <div
