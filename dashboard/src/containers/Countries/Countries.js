@@ -41,6 +41,7 @@ function Countries() {
           </CardHeader>
           <CardBody>
             <Table
+              sortable
               order={order}
               orderBy={orderBy}
               tableHeaderColor="primary"

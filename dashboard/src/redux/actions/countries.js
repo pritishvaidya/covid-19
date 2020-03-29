@@ -8,6 +8,7 @@ import {
 } from "../constants/countries";
 import { locationById } from "../../api/coronavirus-tracker-api";
 import { countryRecovered } from "../../api/covid-19-api";
+import { countryStats } from "../../api/the-virus-tracker-api";
 
 function fetchCountryRequest() {
   return {
@@ -52,14 +53,14 @@ function fetchRecoveredFailure(error) {
 function fetchCountry(id) {
   return async (dispatch) => {
     dispatch(fetchCountryRequest());
-    locationById(id)
+    countryStats(id)
       .then((res) => res.data)
       .then((res) => {
         if (res.error) {
           throw res.error;
         }
-        dispatch(fetchCountrySuccess(res.locations[0]));
-        return res.location[0];
+        dispatch(fetchCountrySuccess(res.countrydata[0]));
+        return res.countrydata[0];
       })
       .catch((error) => {
         dispatch(fetchCountryError(error));

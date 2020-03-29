@@ -97,6 +97,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Table(props) {
   const {
+    noLink,
+    sortable,
     tableHead,
     tableData,
     tableHeaderColor,
@@ -124,24 +126,28 @@ export default function Table(props) {
                     className={classes.tableCell + " " + classes.tableHeadCell}
                     key={key}
                   >
-                    <TableSortLabel
-                      classes={{
-                        root: classes.rootTableSortLabel,
-                        icon: classes.activeTableSortLabel,
-                      }}
-                      active={orderBy === key}
-                      direction={orderBy === key ? order : "asc"}
-                      onClick={createSortHandler(key)}
-                    >
-                      {prop}
-                      {orderBy === key ? (
-                        <span className={classes.visuallyHidden}>
-                          {order === "desc"
-                            ? "sorted descending"
-                            : "sorted ascending"}
-                        </span>
-                      ) : null}
-                    </TableSortLabel>
+                    {sortable ? (
+                      <TableSortLabel
+                        classes={{
+                          root: classes.rootTableSortLabel,
+                          icon: classes.activeTableSortLabel,
+                        }}
+                        active={orderBy === key}
+                        direction={orderBy === key ? order : "asc"}
+                        onClick={createSortHandler(key)}
+                      >
+                        {prop}
+                        {orderBy === key ? (
+                          <span className={classes.visuallyHidden}>
+                            {order === "desc"
+                              ? "sorted descending"
+                              : "sorted ascending"}
+                          </span>
+                        ) : null}
+                      </TableSortLabel>
+                    ) : (
+                      prop
+                    )}
                   </TableCell>
                 );
               })}
@@ -150,6 +156,19 @@ export default function Table(props) {
         ) : null}
         <TableBody>
           {tableData.map((prop, key) => {
+            if (noLink) {
+              return (
+                <TableRow hover key={key} className={classes.tableBodyRow}>
+                  {prop.map((prop, key) => {
+                    return (
+                      <TableCell className={classes.tableCell} key={key}>
+                        {formatValue(prop, key)}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            }
             return (
               <Link
                 href="/countries/[...id]"
