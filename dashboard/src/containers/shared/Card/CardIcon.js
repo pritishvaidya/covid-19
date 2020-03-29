@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   warningCardHeader: header.warningCardHeader,
   successCardHeader: header.successCardHeader,
-  errorCardHeader: header.errorCardHeader,
+  dangerCardHeader: header.errorCardHeader,
   infoCardHeader: header.infoCardHeader,
   primaryCardHeader: header.primaryCardHeader,
 }));

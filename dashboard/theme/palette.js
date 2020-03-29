@@ -3,11 +3,15 @@ import { colors } from "@material-ui/core";
 const white = "#FFFFFF";
 const black = "#000000";
 const gray = "#a9afbb";
+const darkGray = "#3C4858";
+const lightGray = "#e7e7e7";
 
 const palette = {
   black,
   white,
   gray,
+  darkGray,
+  lightGray,
   icon: colors.blueGrey[600],
   divider: colors.grey[200],
   background: {

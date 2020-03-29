@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   cardFooter: {
     padding: "0",
     paddingTop: "10px",
@@ -13,18 +13,18 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     display: "flex",
     backgroundColor: "transparent",
-    border: "0"
+    border: "0",
   },
   cardFooterProfile: {
-    marginTop: "-15px"
+    marginTop: "-15px",
   },
   cardFooterPlain: {
     paddingLeft: "5px",
     paddingRight: "5px",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
   },
   cardFooterStats: {
-    borderTop: "1px solid " + theme.palette.gray,
+    borderTop: "1px solid " + theme.palette.lightGray,
     marginTop: "20px",
     "& svg": {
       position: "relative",
@@ -32,19 +32,19 @@ const useStyles = makeStyles(theme => ({
       marginRight: "3px",
       marginLeft: "3px",
       width: "16px",
-      height: "16px"
+      height: "16px",
     },
     "& .fab,& .fas,& .far,& .fal,& .material-icons": {
       fontSize: "16px",
       position: "relative",
       top: "4px",
       marginRight: "3px",
-      marginLeft: "3px"
-    }
+      marginLeft: "3px",
+    },
   },
   cardFooterChart: {
-    borderTop: "1px solid " + theme.palette.gray
-  }
+    borderTop: "1px solid " + theme.palette.lightGray,
+  },
 }));
 
 export default function CardFooter(props) {
@@ -57,7 +57,7 @@ export default function CardFooter(props) {
     [classes.cardFooterProfile]: profile,
     [classes.cardFooterStats]: stats,
     [classes.cardFooterChart]: chart,
-    [className]: className !== undefined
+    [className]: className !== undefined,
   });
   return (
     <div className={cardFooterClasses} {...rest}>

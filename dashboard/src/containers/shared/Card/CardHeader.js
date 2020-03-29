@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     background: "transparent",
     zIndex: "3 !important",
     "&$cardHeaderPlain,&$cardHeaderIcon,&$cardHeaderStats,&$warningCardHeader,&$successCardHeader,&$dangerCardHeader,&$infoCardHeader,&$primaryCardHeader": {
-      margin: "0 15px",
+      margin: "0 15px 10px 15px",
       padding: "0",
       position: "relative",
       color: theme.palette.white,
@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
   dangerCardHeader: {
     color: theme.palette.white,
     "&:not($cardHeaderIcon)": {
-      ...header.dangerCardHeader,
+      ...header.errorCardHeader,
     },
   },
   infoCardHeader: {
