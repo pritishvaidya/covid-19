@@ -20,14 +20,25 @@ import CardBody from "../shared/Card/CardBody";
 import Table from "../shared/Table/Table";
 
 function Country() {
-  const { country, countryRsf, data, formatValue, recoveredRsf } = useCountry();
+  const {
+    order,
+    orderBy,
+    formatValue,
+    formatTimelineValue,
+    handleRequestSort,
+    stableSort,
+    getComparator,
+    country,
+    countryRsf,
+    data,
+    timelineRsf,
+    timelineData,
+  } = useCountry();
   const classes = useStyles();
 
-  if (countryRsf || recoveredRsf) {
+  if (countryRsf || timelineRsf) {
     return <Overlay />;
   }
-
-  console.log(country);
 
   return (
     <div>
@@ -109,6 +120,41 @@ function Country() {
                 tableHead={["ID", "Case Type", "Figure"]}
                 formatValue={formatValue}
                 tableData={data}
+              />
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="primary">
+              <h2 className={classes.cardTitleWhite}>Stats</h2>
+              <p className={classes.cardCategoryWhite}>
+                {`Case Stats for ${country.info.title}`}
+              </p>
+            </CardHeader>
+            <CardBody>
+              <Table
+                sortable
+                order={order}
+                orderBy={orderBy}
+                tableHeaderColor="primary"
+                tableHead={[
+                  "ID",
+                  "Date",
+                  "New Daily Cases",
+                  "New Daily Deaths",
+                  "Total Cases",
+                  "Total Recoveries",
+                  "Total Deaths",
+                ]}
+                tableData={stableSort(
+                  timelineData,
+                  getComparator(order, orderBy)
+                )}
+                formatValue={formatTimelineValue}
+                onRequestSort={handleRequestSort}
               />
             </CardBody>
           </Card>

@@ -1,31 +1,76 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import numeral from "numeral";
 
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
-import { fetchCountry, fetchRecovered } from "../redux/actions/countries";
-import { selectCountry, selectRecovered } from "../selectors/countries";
+import { fetchCountry, fetchTimeline } from "../redux/actions/countries";
+import { selectCountry, selectCountryTimeline } from "../selectors/countries";
+import dayJS from "dayjs";
 
 function useCountry() {
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState(0);
+
   const dispatch = useDispatch();
   const { query } = useRouter();
   const countryCode = "AU" || query.id[0];
 
   const { country, rsf: countryRsf } = useSelector(selectCountry, shallowEqual);
-  const { recovered, rsf: recoveredRsf } = useSelector(
-    selectRecovered,
+  const { timeline, rsf: timelineRsf } = useSelector(
+    selectCountryTimeline,
     shallowEqual
   );
 
   useEffect(() => {
     dispatch(fetchCountry(countryCode));
-    dispatch(fetchRecovered(countryCode));
+    dispatch(fetchTimeline(countryCode));
   }, []);
 
+  function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+    return 0;
+  }
+
+  function getComparator(order, orderBy) {
+    return order === "desc"
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
+  }
+
+  function stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+  }
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
+
   const formatValue = (prop, key) => {
-    if (key === 2) {
-      return prop && prop > 0 ? `${numeral(prop).format("0,0")}` : 0;
+    if (key === 5) {
+      return prop ? numeral(prop).format("0,0") : 0;
+    } else if (key >= 6) {
+      return prop && prop > 0 ? `+${numeral(prop).format("0,0")}` : 0;
+    }
+    return prop;
+  };
+
+  const formatTimelineValue = (prop, key) => {
+    if (key >= 2) {
+      return prop && prop > 0 ? `+${numeral(prop).format("0,0")}` : 0;
     }
     return prop;
   };
@@ -41,13 +86,29 @@ function useCountry() {
     [8, "New Deaths Today", country.new_deaths_today],
   ];
 
+  const timelineData = Object.keys(timeline).map((key, index) => {
+    return [index + 1, dayJS(key).format("MMMM DD, YYYY")].concat(
+      Object.keys(timeline[key]).map((nestedKey) => {
+        return timeline[key][nestedKey];
+      })
+    );
+  });
+  timelineData.pop();
+
   return {
     country,
     countryRsf,
-    recovered,
-    recoveredRsf,
+    timeline,
+    timelineRsf,
     data,
+    order,
+    orderBy,
     formatValue,
+    formatTimelineValue,
+    handleRequestSort,
+    stableSort,
+    getComparator,
+    timelineData,
   };
 }
 

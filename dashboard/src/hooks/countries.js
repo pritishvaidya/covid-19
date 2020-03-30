@@ -21,13 +21,6 @@ const useCountries = () => {
     dispatch(fetchLocations());
   }, []);
 
-  function deFormat(value, orderBy) {
-    if (orderBy >= 3) {
-      return numeral(value).value();
-    }
-    return value;
-  }
-
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1;

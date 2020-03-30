@@ -2,13 +2,12 @@ import {
   COUNTRY_SUCCESS,
   COUNTRY_REQUEST,
   COUNTRY_FAILURE,
-  RECOVERED_REQUEST,
-  RECOVERED_SUCCESS,
-  RECOVERED_FAILURE,
+  TIMELINE_REQUEST,
+  TIMELINE_SUCCESS,
+  TIMELINE_FAILURE,
 } from "../constants/countries";
-import { locationById } from "../../api/coronavirus-tracker-api";
-import { countryRecovered } from "../../api/covid-19-api";
-import { countryStats } from "../../api/the-virus-tracker-api";
+
+import { countryStats, countryTimeline } from "../../api/the-virus-tracker-api";
 
 function fetchCountryRequest() {
   return {
@@ -30,22 +29,22 @@ function fetchCountryError(error) {
   };
 }
 
-function fetchRecoveredRequest() {
+function fetchTimelineRequest() {
   return {
-    type: RECOVERED_REQUEST,
+    type: TIMELINE_REQUEST,
   };
 }
 
-function fetchRecoveredSuccess(payload) {
+function fetchTimelineSuccess(payload) {
   return {
-    type: RECOVERED_SUCCESS,
+    type: TIMELINE_SUCCESS,
     payload,
   };
 }
 
-function fetchRecoveredFailure(error) {
+function fetchTimelineFailure(error) {
   return {
-    type: RECOVERED_FAILURE,
+    type: TIMELINE_FAILURE,
     error,
   };
 }
@@ -68,20 +67,20 @@ function fetchCountry(id) {
   };
 }
 
-function fetchRecovered(id) {
+function fetchTimeline(id) {
   return async (dispatch) => {
-    dispatch(fetchRecoveredRequest(id));
-    countryRecovered(id)
+    dispatch(fetchTimelineRequest(id));
+    countryTimeline(id)
       .then((res) => res.data)
       .then((res) => {
         if (res.error) {
           throw res.error;
         }
-        dispatch(fetchRecoveredSuccess(res[0]));
-        return res[0];
+        dispatch(fetchTimelineSuccess(res.timelineitems[0]));
+        return res.timelineitems[0];
       })
       .catch((error) => {
-        dispatch(fetchRecoveredFailure(error));
+        dispatch(fetchTimelineFailure(error));
       });
   };
 }
@@ -91,8 +90,8 @@ export {
   fetchCountryRequest,
   fetchCountrySuccess,
   fetchCountryError,
-  fetchRecovered,
-  fetchRecoveredRequest,
-  fetchRecoveredSuccess,
-  fetchRecoveredFailure,
+  fetchTimeline,
+  fetchTimelineRequest,
+  fetchTimelineSuccess,
+  fetchTimelineFailure,
 };

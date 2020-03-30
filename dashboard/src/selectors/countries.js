@@ -13,10 +13,13 @@ const selectCountry = createSelector(selectCountriesDomain, (substate) => ({
   rsf: substate.countryRsf,
 }));
 
-const selectRecovered = createSelector(selectCountriesDomain, (substate) => ({
-  recovered: substate.recovered,
-  rsf: substate.recoveredRsf,
-}));
+const selectCountryTimeline = createSelector(
+  selectCountriesDomain,
+  (substate) => ({
+    timeline: substate.timeline,
+    rsf: substate.timelineRsf,
+  })
+);
 
-export { selectCountry, selectRecovered };
+export { selectCountry, selectCountryTimeline };
 export default selectCountriesDomain;

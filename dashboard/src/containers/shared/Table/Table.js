@@ -71,6 +71,13 @@ const useStyles = makeStyles((theme) => ({
     display: "table-row",
     outline: "none",
     verticalAlign: "middle",
+  },
+  tableBodyRowPointer: {
+    height: "48px",
+    color: "inherit",
+    display: "table-row",
+    outline: "none",
+    verticalAlign: "middle",
     cursor: "pointer",
   },
   rootTableSortLabel: {
@@ -175,7 +182,11 @@ export default function Table(props) {
                 as={`/countries/${prop[2]}`}
                 key={key}
               >
-                <TableRow hover key={key} className={classes.tableBodyRow}>
+                <TableRow
+                  hover
+                  key={key}
+                  className={classes.tableBodyRowPointer}
+                >
                   {prop.map((prop, key) => {
                     return (
                       <TableCell className={classes.tableCell} key={key}>
