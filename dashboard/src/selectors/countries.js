@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-
+import { omit } from "ramda";
 /**
  * Direct selector to the Maps state domain
  */
@@ -16,7 +16,7 @@ const selectCountry = createSelector(selectCountriesDomain, (substate) => ({
 const selectCountryTimeline = createSelector(
   selectCountriesDomain,
   (substate) => ({
-    timeline: substate.timeline,
+    timeline: omit(["stat"], substate.timeline),
     rsf: substate.timelineRsf,
   })
 );

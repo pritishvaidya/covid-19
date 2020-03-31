@@ -94,32 +94,41 @@ function useCountry() {
       })
     );
   });
-  timelineData.pop();
+
+  const sort = sortWith([ascend(prop("x"))]);
   const newDailyCases = Object.keys(timeline).map((key) => {
     return {
       x: new Date(dayJS(key).format()),
       y: timeline[key].new_daily_cases,
     };
   });
-  newDailyCases.pop();
-  const sortedTimelineData = sortWith([ascend(prop("x"))])(newDailyCases);
+  const sortedDailyCases = sort(newDailyCases);
 
   const newDailyDeaths = Object.keys(timeline).map((key) => {
-    return { x: timeline[key].new_daily_deaths, y: dayJS(key).format() };
+    return {
+      x: new Date(dayJS(key).format()),
+      y: timeline[key].new_daily_deaths,
+    };
   });
-  newDailyDeaths.pop();
+  const sortedDailyDeaths = sort(newDailyDeaths);
+
   const totalCases = Object.keys(timeline).map((key) => {
-    return { x: timeline[key].total_cases, y: dayJS(key).format() };
+    return { x: new Date(dayJS(key).format()), y: timeline[key].total_cases };
   });
-  totalCases.pop();
+  const sortedTotalCases = sort(totalCases);
+
   const totalRecoveries = Object.keys(timeline).map((key) => {
-    return { x: timeline[key].total_recoveries, y: dayJS(key).format() };
+    return {
+      x: new Date(dayJS(key).format()),
+      y: timeline[key].total_recoveries,
+    };
   });
-  totalRecoveries.pop();
+  const sortedTotalRecoveries = sort(totalRecoveries);
+
   const totalDeaths = Object.keys(timeline).map((key) => {
-    return { x: timeline[key].total_deaths, y: dayJS(key).format() };
+    return { x: new Date(dayJS(key).format()), y: timeline[key].total_deaths };
   });
-  totalDeaths.pop();
+  const sortedTotalDeaths = sort(totalDeaths);
 
   return {
     country,
@@ -135,11 +144,11 @@ function useCountry() {
     stableSort,
     getComparator,
     timelineData,
-    newDailyCases: sortedTimelineData,
-    newDailyDeaths,
-    totalCases,
-    totalRecoveries,
-    totalDeaths,
+    newDailyCases: sortedDailyCases,
+    newDailyDeaths: sortedDailyDeaths,
+    totalCases: sortedTotalCases,
+    totalRecoveries: sortedTotalRecoveries,
+    totalDeaths: sortedTotalDeaths,
   };
 }
 

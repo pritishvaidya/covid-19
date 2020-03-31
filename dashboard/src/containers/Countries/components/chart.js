@@ -27,13 +27,14 @@ function Chart(props) {
     totalDeaths,
   } = props;
 
-  const { newCasesZoomDomain, handleNewDailyCases } = useChart(
+  const { data, totalCasesZoomDomain, handleTotalCases } = useChart(
     newDailyCases,
     newDailyDeaths,
     totalCases,
     totalRecoveries,
     totalDeaths
   );
+
   return (
     <GridContainer
       container
@@ -46,11 +47,11 @@ function Chart(props) {
           theme={{
             axis: {
               style: {
-                axis: { stroke: darkThemePalette.primary.main },
+                axis: { stroke: darkThemePalette.gray },
                 tickLabels: {
                   fontSize: 7,
                   padding: 5,
-                  fill: darkThemePalette.primary.main,
+                  fill: darkThemePalette.gray,
                 },
                 axisLabel: { fontSize: 12, padding: 30 },
                 grid: { stroke: darkThemePalette.primary.white },
@@ -60,38 +61,41 @@ function Chart(props) {
           containerComponent={
             <VictoryZoomContainer
               zoomDimension="x"
-              zoomDomain={newCasesZoomDomain}
-              onZoomDomainChange={handleNewDailyCases}
+              zoomDomain={totalCasesZoomDomain}
+              onZoomDomainChange={handleTotalCases}
             />
           }
           scale={{ x: "time" }}
         >
-          <VictoryGroup
-            labels={({ datum }) => `New Daily Cases: ${datum.y}`}
-            labelComponent={
-              <VictoryTooltip
-                flyoutStyle={{
-                  stroke: darkThemePalette.primary.main,
-                  fill: "white",
+          {data.map(({ label, chartData, color }) => (
+            <VictoryGroup
+              key={label}
+              labels={({ datum }) => `${label}: ${datum.y}`}
+              labelComponent={
+                <VictoryTooltip
+                  flyoutStyle={{
+                    stroke: color,
+                    fill: "white",
+                  }}
+                  style={{ fontSize: 8, fill: darkThemePalette.gray }}
+                />
+              }
+              data={chartData}
+            >
+              <VictoryLine
+                style={{
+                  data: {
+                    stroke: color,
+                    strokeWidth: 1,
+                  },
                 }}
-                style={{ fontSize: 8, fill: darkThemePalette.primary.main }}
               />
-            }
-            data={newDailyCases}
-          >
-            <VictoryLine
-              style={{
-                data: {
-                  stroke: darkThemePalette.primary.main,
-                  strokeWidth: 1,
-                },
-              }}
-            />
-            <VictoryScatter
-              style={{ data: { fill: darkThemePalette.primary.main } }}
-              size={({ active }) => (active ? 2 : 2)}
-            />
-          </VictoryGroup>
+              <VictoryScatter
+                style={{ data: { fill: color } }}
+                size={({ active }) => (active ? 2 : 2)}
+              />
+            </VictoryGroup>
+          ))}
         </VictoryChart>
         <VictoryChart
           padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
@@ -100,31 +104,39 @@ function Chart(props) {
           containerComponent={
             <VictoryBrushContainer
               brushDimension="x"
-              brushDomain={newCasesZoomDomain}
-              onBrushDomainChange={handleNewDailyCases}
+              brushDomain={totalCasesZoomDomain}
+              onBrushDomainChange={handleTotalCases}
             />
           }
         >
           <VictoryAxis
+            label="Overall Stats"
             style={{
-              axis: { stroke: darkThemePalette.primary.main },
+              axis: { stroke: darkThemePalette.gray },
               tickLabels: {
                 fontSize: 7,
                 padding: 5,
-                fill: darkThemePalette.primary.main,
+                fill: darkThemePalette.gray,
               },
-              axisLabel: { fontSize: 12, padding: 30 },
+              axisLabel: {
+                fontSize: 12,
+                padding: 30,
+                fill: darkThemePalette.gray,
+              },
             }}
             tickFormat={(x) => {
               return dayJS(x).format("MMM DD");
             }}
           />
-          <VictoryLine
-            style={{
-              data: { stroke: darkThemePalette.primary.main, strokeWidth: 1 },
-            }}
-            data={newDailyCases}
-          />
+          {data.map(({ label, chartData, color }) => (
+            <VictoryLine
+              key={label}
+              style={{
+                data: { stroke: color, strokeWidth: 1 },
+              }}
+              data={chartData}
+            />
+          ))}
         </VictoryChart>
       </GridItem>
     </GridContainer>
