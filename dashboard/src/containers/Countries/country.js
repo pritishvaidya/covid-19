@@ -116,7 +116,7 @@ function Country() {
             <CardHeader color="primary">
               <h2 className={classes.cardTitleWhite}>Timeline</h2>
               <p className={classes.cardCategoryWhite}>
-                {`Timeline for ${country.info.title}`}
+                {`Timeline Graphs for ${country.info.title}`}
               </p>
             </CardHeader>
             <CardBody>
