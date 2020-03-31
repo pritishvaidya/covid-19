@@ -18,6 +18,7 @@ import useCountry from "../../hooks/country";
 import useStyles from "./styles";
 import CardBody from "../shared/Card/CardBody";
 import Table from "../shared/Table/Table";
+import Chart from "./components/chart";
 
 function Country() {
   const {
@@ -33,6 +34,11 @@ function Country() {
     data,
     timelineRsf,
     timelineData,
+    newDailyCases,
+    newDailyDeaths,
+    totalCases,
+    totalRecoveries,
+    totalDeaths,
   } = useCountry();
   const classes = useStyles();
 
@@ -105,6 +111,27 @@ function Country() {
         </GridItem>
       </GridContainer>
       <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="primary">
+              <h2 className={classes.cardTitleWhite}>Timeline</h2>
+              <p className={classes.cardCategoryWhite}>
+                {`Timeline for ${country.info.title}`}
+              </p>
+            </CardHeader>
+            <CardBody>
+              <Chart
+                newDailyCases={newDailyCases}
+                newDailyDeaths={newDailyDeaths}
+                totalCases={totalCases}
+                totalRecoveries={totalRecoveries}
+                totalDeaths={totalDeaths}
+              />
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
+      <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
           <Card>
             <CardHeader color="primary">
@@ -129,13 +156,14 @@ function Country() {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h2 className={classes.cardTitleWhite}>Stats</h2>
+              <h2 className={classes.cardTitleWhite}>Timelines</h2>
               <p className={classes.cardCategoryWhite}>
-                {`Case Stats for ${country.info.title}`}
+                {`Timeline Stats for ${country.info.title}`}
               </p>
             </CardHeader>
             <CardBody>
               <Table
+                noLink
                 sortable
                 order={order}
                 orderBy={orderBy}

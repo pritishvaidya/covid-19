@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import numeral from "numeral";
+import { sortWith, ascend, prop } from "ramda";
 
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
@@ -94,6 +95,31 @@ function useCountry() {
     );
   });
   timelineData.pop();
+  const newDailyCases = Object.keys(timeline).map((key) => {
+    return {
+      x: new Date(dayJS(key).format()),
+      y: timeline[key].new_daily_cases,
+    };
+  });
+  newDailyCases.pop();
+  const sortedTimelineData = sortWith([ascend(prop("x"))])(newDailyCases);
+
+  const newDailyDeaths = Object.keys(timeline).map((key) => {
+    return { x: timeline[key].new_daily_deaths, y: dayJS(key).format() };
+  });
+  newDailyDeaths.pop();
+  const totalCases = Object.keys(timeline).map((key) => {
+    return { x: timeline[key].total_cases, y: dayJS(key).format() };
+  });
+  totalCases.pop();
+  const totalRecoveries = Object.keys(timeline).map((key) => {
+    return { x: timeline[key].total_recoveries, y: dayJS(key).format() };
+  });
+  totalRecoveries.pop();
+  const totalDeaths = Object.keys(timeline).map((key) => {
+    return { x: timeline[key].total_deaths, y: dayJS(key).format() };
+  });
+  totalDeaths.pop();
 
   return {
     country,
@@ -109,6 +135,11 @@ function useCountry() {
     stableSort,
     getComparator,
     timelineData,
+    newDailyCases: sortedTimelineData,
+    newDailyDeaths,
+    totalCases,
+    totalRecoveries,
+    totalDeaths,
   };
 }
 
