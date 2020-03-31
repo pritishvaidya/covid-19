@@ -75,43 +75,65 @@ function useChart(
     useTotalDeathsZoomDomain(domain);
   }
 
+  function getData(zoomedXDomain, data) {
+    return data.filter(
+      // is d "between" the ends of the visible x-domain?
+      (d) => d.x >= zoomedXDomain[0] && d.x <= zoomedXDomain[1]
+    );
+  }
+
   const data = [
-    {
-      label: "New Daily Cases",
-      chartData: newDailyCases,
-      chartHandler: handleNewDailyCases,
-      color: darkThemePalette.primary.main,
-    },
-    {
-      label: "New Daily Deaths",
-      chartData: newDailyDeaths,
-      chartHandler: handleDailyDeaths,
-      color: darkThemePalette.error.main,
-    },
-    {
-      label: "Total Cases",
-      chartData: totalCases,
-      chartHandler: handleTotalCases,
-      color: darkThemePalette.secondary.main,
-    },
-    {
-      label: "Total Recoveries",
-      chartData: totalRecoveries,
-      chartHandler: handleTotalRecoveries,
-      color: darkThemePalette.warning.main,
-    },
-    {
-      label: "Total Deaths",
-      chartData: totalDeaths,
-      chartHandler: handleTotalDeaths,
-      color: darkThemePalette.success.main,
-    },
+    [
+      {
+        label: "Total Cases",
+        chartData: totalCases,
+        chartZoom: totalCasesZoomDomain,
+        chartHandler: handleTotalCases,
+        color: darkThemePalette.primary.main,
+        gridSize: 8,
+      },
+    ],
+    [
+      {
+        label: "Total Recoveries",
+        chartData: totalRecoveries,
+        chartZoom: totalRecoveriesZoomDomain,
+        chartHandler: handleTotalRecoveries,
+        color: darkThemePalette.warning.main,
+        gridSize: 6,
+      },
+      {
+        label: "Total Deaths",
+        chartData: totalDeaths,
+        chartZoom: totalDeathsZoomDomain,
+        chartHandler: handleTotalDeaths,
+        color: darkThemePalette.success.main,
+        gridSize: 6,
+      },
+    ],
+    [
+      {
+        label: "New Daily Cases",
+        chartData: newDailyCases,
+        chartZoom: newCasesZoomDomain,
+        chartHandler: handleNewDailyCases,
+        color: darkThemePalette.secondary.main,
+        gridSize: 6,
+      },
+      {
+        label: "New Daily Deaths",
+        chartData: newDailyDeaths,
+        chartZoom: dailyDeathsZoomDomain,
+        chartHandler: handleDailyDeaths,
+        color: darkThemePalette.error.main,
+        gridSize: 6,
+      },
+    ],
   ];
 
   return {
     data,
-    totalCasesZoomDomain,
-    handleTotalCases,
+    getData,
   };
 }
 

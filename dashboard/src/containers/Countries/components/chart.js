@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   VictoryChart,
   VictoryZoomContainer,
@@ -8,6 +8,7 @@ import {
   VictoryScatter,
   VictoryBrushContainer,
   VictoryAxis,
+  createContainer,
 } from "victory";
 import dayJS from "dayjs";
 
@@ -27,7 +28,7 @@ function Chart(props) {
     totalDeaths,
   } = props;
 
-  const { data, totalCasesZoomDomain, handleTotalCases } = useChart(
+  const { data, getData } = useChart(
     newDailyCases,
     newDailyDeaths,
     totalCases,
@@ -35,112 +36,114 @@ function Chart(props) {
     totalDeaths
   );
 
-  return (
+  const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
+
+  return data.map((subItems) => (
     <GridContainer
       container
       direction="row"
       justify="center"
       alignItems="center"
     >
-      <GridItem xs={12} sm={12} md={8}>
-        <VictoryChart
-          theme={{
-            axis: {
-              style: {
-                axis: { stroke: darkThemePalette.gray },
-                tickLabels: {
-                  fontSize: 7,
-                  padding: 5,
-                  fill: darkThemePalette.gray,
+      {subItems.map(
+        ({ gridSize, label, chartData, chartZoom, chartHandler, color }) => (
+          <GridItem xs={12} sm={12} md={gridSize}>
+            <VictoryChart
+              theme={{
+                axis: {
+                  style: {
+                    axis: { stroke: darkThemePalette.gray },
+                    tickLabels: {
+                      fontSize: 7,
+                      padding: 5,
+                      fill: darkThemePalette.gray,
+                    },
+                    axisLabel: { fontSize: 12, padding: 30 },
+                    grid: { stroke: darkThemePalette.primary.white },
+                  },
                 },
-                axisLabel: { fontSize: 12, padding: 30 },
-                grid: { stroke: darkThemePalette.primary.white },
-              },
-            },
-          }}
-          containerComponent={
-            <VictoryZoomContainer
-              zoomDimension="x"
-              zoomDomain={totalCasesZoomDomain}
-              onZoomDomainChange={handleTotalCases}
-            />
-          }
-          scale={{ x: "time" }}
-        >
-          {data.map(({ label, chartData, color }) => (
-            <VictoryGroup
-              key={label}
-              labels={({ datum }) => `${label}: ${datum.y}`}
-              labelComponent={
-                <VictoryTooltip
-                  flyoutStyle={{
-                    stroke: color,
-                    fill: "white",
-                  }}
-                  style={{ fontSize: 8, fill: darkThemePalette.gray }}
+              }}
+              containerComponent={
+                <VictoryZoomVoronoiContainer
+                  zoomDimension="x"
+                  zoomDomain={chartZoom}
+                  onZoomDomainChange={chartHandler}
                 />
               }
-              data={chartData}
+              scale={{ x: "time" }}
             >
-              <VictoryLine
+              <VictoryGroup
+                key={label}
+                labels={({ datum }) => `${label}: ${datum.y}`}
+                labelComponent={
+                  <VictoryTooltip
+                    flyoutStyle={{
+                      stroke: color,
+                      fill: "white",
+                    }}
+                    style={{ fontSize: 8, fill: darkThemePalette.gray }}
+                  />
+                }
+                data={chartData}
+              >
+                <VictoryLine
+                  style={{
+                    data: {
+                      stroke: color,
+                      strokeWidth: 1,
+                    },
+                  }}
+                />
+                <VictoryScatter
+                  data={getData(chartZoom, chartData)}
+                  style={{ data: { fill: color } }}
+                  size={({ active }) => (active ? 2 : 2)}
+                />
+              </VictoryGroup>
+            </VictoryChart>
+            <VictoryChart
+              padding={{ top: 0, left: 50, right: 50, bottom: 50 }}
+              height={100}
+              scale={{ x: "time" }}
+              containerComponent={
+                <VictoryBrushContainer
+                  brushDimension="x"
+                  brushDomain={chartZoom}
+                  onBrushDomainChange={chartHandler}
+                />
+              }
+            >
+              <VictoryAxis
+                label={label}
                 style={{
-                  data: {
-                    stroke: color,
-                    strokeWidth: 1,
+                  axis: { stroke: darkThemePalette.gray },
+                  tickLabels: {
+                    fontSize: 7,
+                    padding: 5,
+                    fill: darkThemePalette.gray,
+                  },
+                  axisLabel: {
+                    fontSize: 12,
+                    fill: darkThemePalette.gray,
                   },
                 }}
+                tickFormat={(x) => {
+                  return dayJS(x).format("MMM DD");
+                }}
               />
-              <VictoryScatter
-                style={{ data: { fill: color } }}
-                size={({ active }) => (active ? 2 : 2)}
+              <VictoryLine
+                key={label}
+                style={{
+                  data: { stroke: color, strokeWidth: 1 },
+                }}
+                data={chartData}
               />
-            </VictoryGroup>
-          ))}
-        </VictoryChart>
-        <VictoryChart
-          padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
-          height={100}
-          scale={{ x: "time" }}
-          containerComponent={
-            <VictoryBrushContainer
-              brushDimension="x"
-              brushDomain={totalCasesZoomDomain}
-              onBrushDomainChange={handleTotalCases}
-            />
-          }
-        >
-          <VictoryAxis
-            label="Overall Stats"
-            style={{
-              axis: { stroke: darkThemePalette.gray },
-              tickLabels: {
-                fontSize: 7,
-                padding: 5,
-                fill: darkThemePalette.gray,
-              },
-              axisLabel: {
-                fontSize: 12,
-                padding: 30,
-                fill: darkThemePalette.gray,
-              },
-            }}
-            tickFormat={(x) => {
-              return dayJS(x).format("MMM DD");
-            }}
-          />
-          {data.map(({ label, chartData, color }) => (
-            <VictoryLine
-              key={label}
-              style={{
-                data: { stroke: color, strokeWidth: 1 },
-              }}
-              data={chartData}
-            />
-          ))}
-        </VictoryChart>
-      </GridItem>
+            </VictoryChart>
+          </GridItem>
+        )
+      )}
     </GridContainer>
-  );
+  ));
 }
 
 export default Chart;
