@@ -38,16 +38,17 @@ function Chart(props) {
 
   const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
 
-  return data.map((subItems) => (
+  return data.map((subItems, index) => (
     <GridContainer
       container
       direction="row"
       justify="center"
       alignItems="center"
+      key={index}
     >
       {subItems.map(
         ({ gridSize, label, chartData, chartZoom, chartHandler, color }) => (
-          <GridItem xs={12} sm={12} md={gridSize}>
+          <GridItem xs={12} sm={12} md={gridSize} key={label}>
             <VictoryChart
               theme={{
                 axis: {
