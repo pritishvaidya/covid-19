@@ -1,5 +1,7 @@
 {
     "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
         "plugin:flowtype/recommended",
         "prettier",
         "prettier/flowtype",
@@ -27,6 +29,7 @@
         "react/prop-types": 0,
         "no-param-reassign": 0,
         "import/prefer-default-export": 0,
+        "react/display-name": 0,
         "import/no-unresolved": [
             2,
             { "caseSensitive": false }

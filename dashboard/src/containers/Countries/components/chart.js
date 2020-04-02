@@ -1,7 +1,6 @@
 import React from "react";
 import {
   VictoryChart,
-  VictoryZoomContainer,
   VictoryGroup,
   VictoryTooltip,
   VictoryLine,

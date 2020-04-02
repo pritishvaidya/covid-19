@@ -1,8 +1,8 @@
+/* eslint-disable */
 import window from "global/window";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
 import transform from "./transform";
 import rootReducer from "./reducer";
@@ -22,7 +22,7 @@ const makeConfiguredStore = (reducer, initialState) =>
     composeEnhancers(applyMiddleware(thunkMiddleware))
   );
 
-export default (initialState, { isServer }) => {
+export default (initialState = {}, { isServer }) => {
   if (isServer) {
     return makeConfiguredStore(rootReducer, initialState);
   } else {

@@ -1,13 +1,13 @@
 import { combineReducers } from "redux";
 
 import appReducer from "./reducers/app";
-import homeReducer from "./reducers/home";
+import dashboardReducer from "./reducers/dashboard";
 import mapsReducer from "./reducers/maps";
 import countriesReducer from "./reducers/countries";
 
 export default combineReducers({
   app: appReducer,
-  home: homeReducer,
+  dashboard: dashboardReducer,
   maps: mapsReducer,
   countries: countriesReducer,
 });

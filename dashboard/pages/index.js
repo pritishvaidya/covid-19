@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-import Container from '@material-ui/core/Container'
+import Dashboard from "../src/containers/Dashboard";
 
-const Home = () => (
-  <Container />
-)
+const DashboardPage = () => <Dashboard />;
 
-export default Home
+export default DashboardPage;

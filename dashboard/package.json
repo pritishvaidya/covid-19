@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src/**/*.js pages/**/*.js",
-    "lint:fix": "eslint src/**/*.js pages/**/*.js --fix",
+    "lint": "eslint . --ext .js,.jsx --fix",
+    "lint:fix": "eslint . --ext .js,.jsx --fix",
     "line-staged": "line-staged"
   },
   "dependencies": {

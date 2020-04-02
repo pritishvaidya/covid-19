@@ -31,6 +31,7 @@ function Maps(props) {
     >
       {locations.map((location) => (
         <Marker
+          key={location.id}
           id={location.id}
           position={{
             lat: location.coordinates.latitude,
