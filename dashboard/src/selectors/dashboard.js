@@ -11,6 +11,8 @@ const selectDashboardDomain = (state) => state.dashboard;
 const selectDashboard = createSelector(selectDashboardDomain, (substate) => ({
   stats: substate.stats,
   statsRsf: substate.statsRsf,
+  timeline: substate.timeline,
+  timelineRsf: substate.timelineRsf,
 }));
 
 export { selectDashboard };
