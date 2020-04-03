@@ -40,9 +40,12 @@ function Countries(props) {
               tableHeaderColor="primary"
               tableHead={[
                 "ID",
-                "Flag",
-                "Code",
+                null,
+                null,
+                "Country",
+                null,
                 "Cases",
+                null,
                 "Deaths",
                 "Recovered",
                 "Active",

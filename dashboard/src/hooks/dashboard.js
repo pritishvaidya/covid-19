@@ -1,7 +1,9 @@
-import React from "react";
 /* eslint-disable no-undef */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 import { fetchAllStats, fetchTimelines } from "../redux/actions/dashboard";
 import { fetchCountries } from "../redux/actions/countries";
@@ -9,6 +11,7 @@ import { fetchCountries } from "../redux/actions/countries";
 import { selectDashboard } from "../selectors/dashboard";
 import { selectCountries } from "../selectors/countries";
 import numeral from "numeral";
+import { darkThemePalette } from "../../theme/palette";
 
 const R = require("ramda");
 
@@ -68,11 +71,27 @@ function useDashboard() {
   const formatValue = (prop, key) => {
     if (key === 1) {
       return <img src={prop} height={20} width={30} alt={prop} />;
-    }
-    if (key === 5) {
-      return prop ? numeral(prop).format("0,0") : 0;
-    } else if (key >= 6) {
-      return prop && prop > 0 ? `+${numeral(prop).format("0,0")}` : 0;
+    } else if (key === 4 || key === 6) {
+      const isNegative = prop <= 0;
+      const color = isNegative
+        ? darkThemePalette.success.main
+        : key === 4
+        ? darkThemePalette.secondary.main
+        : darkThemePalette.error.main;
+      return (
+        <div style={{ display: "flex", alignItems: "center", color }}>
+          <span style={{ display: "flex", alignItems: "center" }}>
+            {isNegative ? (
+              <ArrowDropDownIcon style={{ color }} />
+            ) : (
+              <ArrowDropUpIcon style={{ color }} />
+            )}
+          </span>{" "}
+          {numeral(prop).format("0,0")}
+        </div>
+      );
+    } else if (key >= 4) {
+      return prop && prop > 0 ? `${numeral(prop).format("0,0")}` : 0;
     }
     return prop;
   };
@@ -81,9 +100,9 @@ function useDashboard() {
   const country = R.map((x) => x.country, countries);
   const countryCode = R.map((x) => x.countryInfo.iso2, countries);
   const cases = R.map((x) => x.cases, countries);
-  // const todayCases =  R.map((x) => x.todayCases, countries);
+  const todayCases = R.map((x) => x.todayCases, countries);
   const deaths = R.map((x) => x.deaths, countries);
-  // const todayDeaths =  R.map((x) => x.todayDeaths, countries);
+  const todayDeaths = R.map((x) => x.todayDeaths, countries);
   const recovered = R.map((x) => x.recovered, countries);
   const active = R.map((x) => x.active, countries);
   const critical = R.map((x) => x.critical, countries);
@@ -95,7 +114,9 @@ function useDashboard() {
     flag[index],
     countryCode[index],
     country[index],
+    todayCases[index],
     cases[index],
+    todayDeaths[index],
     deaths[index],
     recovered[index],
     active[index],
