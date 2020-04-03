@@ -9,7 +9,7 @@ const api = create({
 });
 
 const all = () => api.get(`all`);
-
 const timelines = () => api.get(`/v2/historical/all`);
+const countries = () => api.get(`countries`);
 
-export { all, timelines };
+export { all, timelines, countries };

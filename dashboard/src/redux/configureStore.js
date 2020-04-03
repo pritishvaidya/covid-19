@@ -4,7 +4,6 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 
-import transform from "./transform";
 import rootReducer from "./reducer";
 
 let composeEnhancers = compose;
@@ -31,7 +30,6 @@ export default (initialState = {}, { isServer }) => {
     const persistConfig = {
       key: "root",
       storage,
-      transforms: [transform],
     };
     const persistedReducer = persistReducer(persistConfig, rootReducer);
     const store = makeConfiguredStore(persistedReducer, initialState);

@@ -8,6 +8,13 @@ const selectCountriesDomain = (state) => state.countries;
 /**
  * Other Selectors
  */
+const selectCountries = createSelector(selectCountriesDomain, (substate) => {
+  return {
+    countries: substate.countries,
+    rsf: substate.countriesRsf,
+  };
+});
+
 const selectCountry = createSelector(selectCountriesDomain, (substate) => ({
   country: substate.country,
   rsf: substate.countryRsf,
@@ -21,5 +28,5 @@ const selectCountryTimeline = createSelector(
   })
 );
 
-export { selectCountry, selectCountryTimeline };
+export { selectCountries, selectCountry, selectCountryTimeline };
 export default selectCountriesDomain;

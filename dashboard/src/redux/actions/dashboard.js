@@ -14,14 +14,12 @@ function fetchAllStatsRequest() {
     type: ALL_STATS_REQUEST,
   };
 }
-
 function fetchAllStatsSuccess(payload) {
   return {
     type: ALL_STATS_SUCCESS,
     payload,
   };
 }
-
 function fetchAllStatsError(error) {
   return {
     type: ALL_STATS_FAILURE,
@@ -34,14 +32,12 @@ function fetchTimelinesRequest() {
     type: TIMELINE_REQUEST,
   };
 }
-
 function fetchTimelinesSuccess(payload) {
   return {
     type: TIMELINE_SUCCESS,
     payload,
   };
 }
-
 function fetchTimelinesError(error) {
   return {
     type: TIMELINE_FAILURE,
