@@ -15,5 +15,15 @@ const selectDashboard = createSelector(selectDashboardDomain, (substate) => ({
   timelineRsf: substate.timelineRsf,
 }));
 
-export { selectDashboard };
+const selectStats = createSelector(selectDashboardDomain, (substate) => ({
+  stats: substate.stats,
+  statsRsf: substate.statsRsf,
+}));
+
+const selectTimelines = createSelector(selectDashboardDomain, (substate) => ({
+  timeline: substate.timeline,
+  timelineRsf: substate.timelineRsf,
+}));
+
+export { selectDashboard, selectStats, selectTimelines };
 export default selectDashboardDomain;

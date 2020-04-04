@@ -9,7 +9,7 @@ import Table from "../../shared/Table/Table";
 
 import useStyles from "../styles";
 
-function CasesCountries(props) {
+function DeathsCountries(props) {
   const {
     order,
     orderBy,
@@ -28,12 +28,12 @@ function CasesCountries(props) {
 
   return (
     <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
+      <GridItem xs={12} sm={12} md={9}>
         <Card>
           <CardHeader color="primary">
             <h2 className={classes.cardTitleWhite}>Countries</h2>
             <p className={classes.cardCategoryWhite}>
-              A list of countries with their cases
+              A list of countries with their deaths
             </p>
           </CardHeader>
           <CardBody>
@@ -45,17 +45,11 @@ function CasesCountries(props) {
               tableHeaderColor="primary"
               tableHead={[
                 "ID",
-                null,
-                null,
+                "Flag",
+                "Country Code",
                 "Country",
-                null,
-                "Cases",
-                null,
+                "Today Deaths",
                 "Deaths",
-                "Recovered",
-                "Active",
-                "Critical",
-                "Cases per one million",
                 "Deaths per one million",
               ]}
               tableData={stableSort(rows, getComparator(order, orderBy)).slice(
@@ -77,4 +71,4 @@ function CasesCountries(props) {
   );
 }
 
-export default CasesCountries;
+export default DeathsCountries;

@@ -28,7 +28,7 @@ function CasesCountries(props) {
 
   return (
     <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
+      <GridItem xs={12} sm={12} md={9}>
         <Card>
           <CardHeader color="primary">
             <h2 className={classes.cardTitleWhite}>Countries</h2>
@@ -45,18 +45,12 @@ function CasesCountries(props) {
               tableHeaderColor="primary"
               tableHead={[
                 "ID",
-                null,
-                null,
+                "Flag",
+                "Country Code",
                 "Country",
-                null,
+                "Today Cases",
                 "Cases",
-                null,
-                "Deaths",
-                "Recovered",
-                "Active",
-                "Critical",
                 "Cases per one million",
-                "Deaths per one million",
               ]}
               tableData={stableSort(rows, getComparator(order, orderBy)).slice(
                 page * rowsPerPage,

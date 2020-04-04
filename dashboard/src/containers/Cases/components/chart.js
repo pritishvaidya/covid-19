@@ -22,8 +22,8 @@ import useDashboardChart from "../../../hooks/dashboard-chart";
 
 import useStyles from "../styles";
 
-function DashboardChart(props) {
-  const { cases, deaths, recovered } = props;
+function CasesChart(props) {
+  const { cases } = props;
   const classes = useStyles();
 
   const {
@@ -31,7 +31,7 @@ function DashboardChart(props) {
     totalCasesZoomDomain,
     handleTotalCases,
     getData,
-  } = useDashboardChart({ cases, deaths, recovered });
+  } = useDashboardChart({ cases });
 
   const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
 
@@ -40,9 +40,9 @@ function DashboardChart(props) {
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
-            <h2 className={classes.cardTitleWhite}>Timelines</h2>
+            <h2 className={classes.cardTitleWhite}>Cases</h2>
             <p className={classes.cardCategoryWhite}>
-              A historical data timeline
+              A historical data timeline for Cases
             </p>
           </CardHeader>
           <CardBody>
@@ -156,4 +156,4 @@ function DashboardChart(props) {
   );
 }
 
-export default DashboardChart;
+export default CasesChart;

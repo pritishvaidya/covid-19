@@ -1,9 +1,9 @@
 import React from "react";
 
-import Container from "@material-ui/core/Container";
+import Recovered from "../src/containers/Recovered";
 
 function RecoveredPage() {
-  return <Container />;
+  return <Recovered />;
 }
 
 export default RecoveredPage;

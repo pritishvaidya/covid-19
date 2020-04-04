@@ -1,9 +1,9 @@
 import React from "react";
 
-import Container from "@material-ui/core/Container";
+import Deaths from "../src/containers/Deaths";
 
 function DeathsPage() {
-  return <Container />;
+  return <Deaths />;
 }
 
 export default DeathsPage;

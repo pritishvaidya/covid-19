@@ -15,8 +15,8 @@ const items = [
     icon: <DashboardIcon />,
   },
   {
-    title: "Confirmed",
-    href: "/confirmed",
+    title: "Cases",
+    href: "/cases",
     icon: <PeopleIcon />,
   },
   {

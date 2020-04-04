@@ -1,13 +1,13 @@
 import React from "react";
 
 import Overlay from "../Overlay";
-import DashboardChart from "./components/chart";
-import OverallStatus from "./components/overall-status";
-import Countries from "./components/countries";
+import RecoveredOverallStatus from "./components/overall-status";
+import RecoveredChart from "./components/chart";
+import RecoveredCountries from "./components/countries";
 
-import useDashboard from "../../hooks/dashboard";
+import useRecovered from "../../hooks/recovered";
 
-function Dashboard() {
+function Recovered() {
   const {
     stats,
     statsRsf,
@@ -25,7 +25,7 @@ function Dashboard() {
     rowsPerPage,
     handleChangePage,
     handleChangeRowsPerPage,
-  } = useDashboard();
+  } = useRecovered();
 
   if (statsRsf || timelineRsf || countriesRsf) {
     return <Overlay />;
@@ -33,13 +33,9 @@ function Dashboard() {
 
   return (
     <div>
-      <OverallStatus stats={stats} />
-      <DashboardChart
-        cases={timeline.cases}
-        deaths={timeline.deaths}
-        recovered={timeline.recovered}
-      />
-      <Countries
+      <RecoveredOverallStatus stats={stats} />
+      <RecoveredChart recovered={timeline.recovered} />
+      <RecoveredCountries
         order={order}
         orderBy={orderBy}
         formatValue={formatValue}
@@ -56,4 +52,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Recovered;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import dayJS from "dayjs";
 import { darkThemePalette } from "../../theme/palette";
 
-function useDashboardChart(cases = {}, deaths = {}, recovered = {}) {
+function useDashboardChart({ cases = {}, deaths = {}, recovered = {} }) {
   const casesTimeline = Object.keys(cases).map((caseKey) => {
     return { x: new Date(dayJS(caseKey).format()), y: cases[caseKey] };
   });
@@ -80,7 +80,7 @@ function useDashboardChart(cases = {}, deaths = {}, recovered = {}) {
       chartData: deathsTimeline,
       chartZoom: totalDeathsZoomDomain,
       chartHandler: handleTotalDeaths,
-      color: darkThemePalette.success.main,
+      color: darkThemePalette.error.main,
       gridSize: 6,
     },
     {
@@ -88,7 +88,7 @@ function useDashboardChart(cases = {}, deaths = {}, recovered = {}) {
       chartData: recoveredTimeline,
       chartZoom: totalRecoveriesZoomDomain,
       chartHandler: handleTotalRecoveries,
-      color: darkThemePalette.warning.main,
+      color: darkThemePalette.success.main,
       gridSize: 6,
     },
   ];

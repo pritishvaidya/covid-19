@@ -1,11 +1,13 @@
 import React from "react";
 
+import TableContainer from "@material-ui/core/TableContainer";
 import MaterialTable from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
+import TablePagination from "@material-ui/core/TablePagination";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "next/link";
@@ -104,6 +106,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Table(props) {
   const {
     noLink,
+    pagination,
     sortable,
     tableHead,
     tableData,
@@ -112,9 +115,17 @@ export default function Table(props) {
     orderBy,
     onRequestSort,
     formatValue,
+    totalRows,
+    rowsPerPage,
+    page,
+    handleChangePage,
+    handleChangeRowsPerPage,
   } = props;
 
   const classes = useStyles();
+
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, totalRows - page * rowsPerPage);
 
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -122,83 +133,103 @@ export default function Table(props) {
 
   return (
     <div className={classes.tableResponsive}>
-      <MaterialTable className={classes.table}>
-        {tableHead !== undefined ? (
-          <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
-            <TableRow className={classes.tableHeadRow}>
-              {tableHead.map((prop, key) => {
+      <TableContainer>
+        <MaterialTable className={classes.table}>
+          {tableHead !== undefined ? (
+            <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
+              <TableRow className={classes.tableHeadRow}>
+                {tableHead.map((prop, key) => {
+                  return (
+                    <TableCell
+                      className={
+                        classes.tableCell + " " + classes.tableHeadCell
+                      }
+                      key={key}
+                    >
+                      {sortable ? (
+                        <TableSortLabel
+                          classes={{
+                            root: classes.rootTableSortLabel,
+                            icon: classes.activeTableSortLabel,
+                          }}
+                          active={orderBy === key}
+                          direction={orderBy === key ? order : "asc"}
+                          onClick={createSortHandler(key)}
+                        >
+                          {prop}
+                          {orderBy === key ? (
+                            <span className={classes.visuallyHidden}>
+                              {order === "desc"
+                                ? "sorted descending"
+                                : "sorted ascending"}
+                            </span>
+                          ) : null}
+                        </TableSortLabel>
+                      ) : (
+                        prop
+                      )}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            </TableHead>
+          ) : null}
+          <TableBody>
+            {tableData.map((prop, key) => {
+              if (noLink) {
                 return (
-                  <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={key}
-                  >
-                    {sortable ? (
-                      <TableSortLabel
-                        classes={{
-                          root: classes.rootTableSortLabel,
-                          icon: classes.activeTableSortLabel,
-                        }}
-                        active={orderBy === key}
-                        direction={orderBy === key ? order : "asc"}
-                        onClick={createSortHandler(key)}
-                      >
-                        {prop}
-                        {orderBy === key ? (
-                          <span className={classes.visuallyHidden}>
-                            {order === "desc"
-                              ? "sorted descending"
-                              : "sorted ascending"}
-                          </span>
-                        ) : null}
-                      </TableSortLabel>
-                    ) : (
-                      prop
-                    )}
-                  </TableCell>
+                  <TableRow hover key={key} className={classes.tableBodyRow}>
+                    {prop.map((prop, key) => {
+                      return (
+                        <TableCell className={classes.tableCell} key={key}>
+                          {formatValue(prop, key)}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
                 );
-              })}
-            </TableRow>
-          </TableHead>
-        ) : null}
-        <TableBody>
-          {tableData.map((prop, key) => {
-            if (noLink) {
+              }
               return (
-                <TableRow hover key={key} className={classes.tableBodyRow}>
-                  {prop.map((prop, key) => {
-                    return (
-                      <TableCell className={classes.tableCell} key={key}>
-                        {formatValue(prop, key)}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            }
-            return (
-              <Link
-                href="/countries/[...id]"
-                as={`/countries/${prop[2]}`}
-                key={key}
-              >
-                <TableRow
-                  hover
+                <Link
+                  href="/countries/[...id]"
+                  as={`/countries/${prop[2]}`}
                   key={key}
-                  className={classes.tableBodyRowPointer}
                 >
-                  {prop.map((prop, key) => {
-                    return (
-                      <TableCell className={classes.tableCell} key={key}>
-                        {formatValue(prop, key)}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              </Link>
-            );
-          })}
-        </TableBody>
-      </MaterialTable>
+                  <TableRow
+                    hover
+                    key={key}
+                    className={classes.tableBodyRowPointer}
+                  >
+                    {prop.map((prop, key) => {
+                      return (
+                        <TableCell className={classes.tableCell} key={key}>
+                          {formatValue(prop, key)}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                </Link>
+              );
+            })}
+            {!!pagination && emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+        </MaterialTable>
+      </TableContainer>
+      {!!pagination && (
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 50]}
+          component="div"
+          count={totalRows}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      )}
     </div>
   );
 }

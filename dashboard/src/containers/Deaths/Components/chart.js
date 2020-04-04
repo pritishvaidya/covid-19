@@ -22,16 +22,16 @@ import useDashboardChart from "../../../hooks/dashboard-chart";
 
 import useStyles from "../styles";
 
-function DashboardChart(props) {
-  const { cases, deaths, recovered } = props;
+function DeathsChart(props) {
+  const { deaths } = props;
   const classes = useStyles();
 
   const {
     data,
-    totalCasesZoomDomain,
-    handleTotalCases,
+    totalDeathsZoomDomain,
+    handleTotalDeaths,
     getData,
-  } = useDashboardChart({ cases, deaths, recovered });
+  } = useDashboardChart({ deaths });
 
   const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
 
@@ -40,9 +40,9 @@ function DashboardChart(props) {
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
-            <h2 className={classes.cardTitleWhite}>Timelines</h2>
+            <h2 className={classes.cardTitleWhite}>Deaths</h2>
             <p className={classes.cardCategoryWhite}>
-              A historical data timeline
+              A historical data timeline for Deaths
             </p>
           </CardHeader>
           <CardBody>
@@ -71,8 +71,8 @@ function DashboardChart(props) {
                   containerComponent={
                     <VictoryZoomVoronoiContainer
                       zoomDimension="x"
-                      zoomDomain={totalCasesZoomDomain}
-                      onZoomDomainChange={handleTotalCases}
+                      zoomDomain={totalDeathsZoomDomain}
+                      onZoomDomainChange={handleTotalDeaths}
                     />
                   }
                   scale={{ x: "time" }}
@@ -115,8 +115,8 @@ function DashboardChart(props) {
                   containerComponent={
                     <VictoryBrushContainer
                       brushDimension="x"
-                      brushDomain={totalCasesZoomDomain}
-                      onBrushDomainChange={handleTotalCases}
+                      brushDomain={totalDeathsZoomDomain}
+                      onBrushDomainChange={handleTotalDeaths}
                     />
                   }
                 >
@@ -156,4 +156,4 @@ function DashboardChart(props) {
   );
 }
 
-export default DashboardChart;
+export default DeathsChart;
