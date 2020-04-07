@@ -116,6 +116,7 @@ export default function Table(props) {
     onRequestSort,
     formatValue,
     totalRows,
+    rowsPerPageOptions,
     rowsPerPage,
     page,
     handleChangePage,
@@ -221,7 +222,7 @@ export default function Table(props) {
       </TableContainer>
       {!!pagination && (
         <TablePagination
-          rowsPerPageOptions={[10, 25, 50]}
+          rowsPerPageOptions={rowsPerPageOptions}
           component="div"
           count={totalRows}
           rowsPerPage={rowsPerPage}
@@ -236,4 +237,5 @@ export default function Table(props) {
 
 Table.defaultProps = {
   tableHeaderColor: "gray",
+  rowsPerPageOptions: [10, 25, 50],
 };

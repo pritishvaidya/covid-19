@@ -6,14 +6,12 @@ import Card from "../shared/Card/Card";
 import CardHeader from "../shared/Card/CardHeader";
 import CardBody from "../shared/Card/CardBody";
 import Table from "../shared/Table/Table";
-import Overlay from "../Overlay";
 
 import useStyles from "./styles";
 
 import useCountries from "../../hooks/countries";
 
 function Countries() {
-  const classes = useStyles();
   const {
     order,
     orderBy,
@@ -21,13 +19,14 @@ function Countries() {
     handleRequestSort,
     stableSort,
     getComparator,
-    rsf,
     rows,
+    page,
+    rowsPerPage,
+    handleChangePage,
+    handleChangeRowsPerPage,
   } = useCountries();
 
-  if (rsf) {
-    return <Overlay />;
-  }
+  const classes = useStyles();
 
   return (
     <GridContainer>
@@ -41,24 +40,38 @@ function Countries() {
           </CardHeader>
           <CardBody>
             <Table
+              pagination
               sortable
               order={order}
               orderBy={orderBy}
               tableHeaderColor="primary"
               tableHead={[
                 "ID",
-                "Updated At",
-                "Code",
+                null,
+                null,
                 "Country",
-                "Province",
-                "Population",
-                "Confirmed",
+                null,
+                "Cases",
+                null,
                 "Deaths",
                 "Recovered",
+                "Active",
+                "Critical",
+                "Cases per one million",
+                "Deaths per one million",
               ]}
-              tableData={stableSort(rows, getComparator(order, orderBy))}
+              tableData={stableSort(rows, getComparator(order, orderBy)).slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage
+              )}
               formatValue={formatValue}
               onRequestSort={handleRequestSort}
+              totalRows={rows.length}
+              rowsPerPageOptions={[15, 25, 50]}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              handleChangePage={handleChangePage}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
             />
           </CardBody>
         </Card>
