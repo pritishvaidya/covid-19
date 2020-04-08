@@ -1,24 +1,31 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import numeral from "numeral";
-import { sortWith, ascend, prop } from "ramda";
 
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { fetchCountry, fetchTimeline } from "../redux/actions/countries";
 import { selectCountry, selectCountryTimeline } from "../selectors/countries";
-import dayJS from "dayjs";
+
+import { darkThemePalette } from "../../theme/palette";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 
 function useCountry() {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(0);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(15);
 
   const dispatch = useDispatch();
   const { query } = useRouter();
   const countryCode = "AU" || query.id[0];
 
-  const { country, rsf: countryRsf } = useSelector(selectCountry, shallowEqual);
-  const { timeline, rsf: timelineRsf } = useSelector(
+  const { countryStats, countryStatsRsf } = useSelector(
+    selectCountry,
+    shallowEqual
+  );
+  const { countryTimeline, countryTimelineRsf } = useSelector(
     selectCountryTimeline,
     shallowEqual
   );
@@ -60,95 +67,58 @@ function useCountry() {
     setOrderBy(property);
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const formatValue = (prop, key) => {
-    if (key === 5) {
-      return prop ? numeral(prop).format("0,0") : 0;
-    } else if (key >= 6) {
-      return prop && prop > 0 ? `+${numeral(prop).format("0,0")}` : 0;
+    if (key === 1) {
+      return <img src={prop} height={20} width={30} alt={prop} />;
+    } else if (key === 4 || key === 6) {
+      const isNegative = prop <= 0;
+      const color = isNegative
+        ? darkThemePalette.success.main
+        : key === 4
+        ? darkThemePalette.secondary.main
+        : darkThemePalette.error.main;
+      return (
+        <div style={{ display: "flex", alignItems: "center", color }}>
+          <span style={{ display: "flex", alignItems: "center" }}>
+            {isNegative ? (
+              <ArrowDropDownIcon style={{ color }} />
+            ) : (
+              <ArrowDropUpIcon style={{ color }} />
+            )}
+          </span>{" "}
+          {numeral(prop).format("0,0")}
+        </div>
+      );
+    } else if (key >= 4) {
+      return prop && prop > 0 ? `${numeral(prop).format("0,0")}` : 0;
     }
     return prop;
   };
-
-  const formatTimelineValue = (prop, key) => {
-    if (key >= 2) {
-      return prop && prop > 0 ? `+${numeral(prop).format("0,0")}` : 0;
-    }
-    return prop;
-  };
-
-  const data = [
-    [1, "Overall", country.total_cases],
-    [2, "Active", country.total_active_cases],
-    [3, "Recovered", country.total_recovered],
-    [4, "Deaths", country.total_deaths],
-    [5, "Serious", country.total_serious_cases],
-    [6, "Unresolved", country.unresolved],
-    [7, "New Cases Today", country.new_cases_today],
-    [8, "New Deaths Today", country.new_deaths_today],
-  ];
-
-  const timelineData = Object.keys(timeline).map((key, index) => {
-    return [index + 1, dayJS(key).format("MMMM DD, YYYY")].concat(
-      Object.keys(timeline[key]).map((nestedKey) => {
-        return timeline[key][nestedKey];
-      })
-    );
-  });
-
-  const sort = sortWith([ascend(prop("x"))]);
-  const newDailyCases = Object.keys(timeline).map((key) => {
-    return {
-      x: new Date(dayJS(key).format()),
-      y: timeline[key].new_daily_cases,
-    };
-  });
-  const sortedDailyCases = sort(newDailyCases);
-
-  const newDailyDeaths = Object.keys(timeline).map((key) => {
-    return {
-      x: new Date(dayJS(key).format()),
-      y: timeline[key].new_daily_deaths,
-    };
-  });
-  const sortedDailyDeaths = sort(newDailyDeaths);
-
-  const totalCases = Object.keys(timeline).map((key) => {
-    return { x: new Date(dayJS(key).format()), y: timeline[key].total_cases };
-  });
-  const sortedTotalCases = sort(totalCases);
-
-  const totalRecoveries = Object.keys(timeline).map((key) => {
-    return {
-      x: new Date(dayJS(key).format()),
-      y: timeline[key].total_recoveries,
-    };
-  });
-  const sortedTotalRecoveries = sort(totalRecoveries);
-
-  const totalDeaths = Object.keys(timeline).map((key) => {
-    return { x: new Date(dayJS(key).format()), y: timeline[key].total_deaths };
-  });
-  const sortedTotalDeaths = sort(totalDeaths);
 
   return {
-    country,
-    countryRsf,
-    timeline,
-    timelineRsf,
-    data,
+    countryStats,
+    countryStatsRsf,
+    countryTimeline,
+    countryTimelineRsf,
     order,
     orderBy,
     formatValue,
-    formatTimelineValue,
     handleRequestSort,
     stableSort,
     getComparator,
-    timelineData,
-    newDailyCases: sortedDailyCases,
-    newDailyDeaths: sortedDailyDeaths,
-    totalCases: sortedTotalCases,
-    totalRecoveries: sortedTotalRecoveries,
-    totalDeaths: sortedTotalDeaths,
+    page,
+    rowsPerPage,
+    handleChangePage,
+    handleChangeRowsPerPage,
   };
 }
 

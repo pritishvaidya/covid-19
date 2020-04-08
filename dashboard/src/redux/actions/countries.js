@@ -10,8 +10,11 @@ import {
   TIMELINE_FAILURE,
 } from "../constants/countries";
 
-import { countryStats, countryTimeline } from "../../api/the-virus-tracker-api";
-import { countries } from "../../api/novel-covid-api";
+import {
+  countries,
+  country,
+  countryTimelines,
+} from "../../api/novel-covid-api";
 
 function fetchCountriesRequest() {
   return {
@@ -88,14 +91,14 @@ function fetchCountries() {
 function fetchCountry(id) {
   return async (dispatch) => {
     dispatch(fetchCountryRequest());
-    countryStats(id)
+    country(id)
       .then((res) => res.data)
       .then((res) => {
         if (res.error) {
           throw res.error;
         }
-        dispatch(fetchCountrySuccess(res.countrydata[0]));
-        return res.countrydata[0];
+        dispatch(fetchCountrySuccess(res));
+        return res;
       })
       .catch((error) => {
         dispatch(fetchCountryError(error));
@@ -106,14 +109,14 @@ function fetchCountry(id) {
 function fetchTimeline(id) {
   return async (dispatch) => {
     dispatch(fetchTimelineRequest(id));
-    countryTimeline(id)
+    countryTimelines(id)
       .then((res) => res.data)
       .then((res) => {
         if (res.error) {
           throw res.error;
         }
-        dispatch(fetchTimelineSuccess(res.timelineitems[0]));
-        return res.timelineitems[0];
+        dispatch(fetchTimelineSuccess(res));
+        return res;
       })
       .catch((error) => {
         dispatch(fetchTimelineFailure(error));

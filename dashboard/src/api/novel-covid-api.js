@@ -10,6 +10,9 @@ const api = create({
 
 const all = () => api.get(`all`);
 const timelines = () => api.get(`/v2/historical/all`);
-const countries = () => api.get(`countries`);
 
-export { all, timelines, countries };
+const countries = () => api.get(`countries`);
+const country = (code) => api.get(`countries/${code}`);
+const countryTimelines = (code) => api.get(`historical/${code}`);
+
+export { all, timelines, countries, country, countryTimelines };

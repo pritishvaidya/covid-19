@@ -11,10 +11,10 @@ import {
 } from "../constants/countries";
 
 const initialState = {
-  countryRsf: false,
-  country: {},
-  timelineRsf: false,
-  timeline: {},
+  countryStatsRsf: false,
+  countryStats: {},
+  countryTimelineRsf: false,
+  countryTimeline: {},
   countries: [],
   countriesRsf: false,
 };
@@ -28,17 +28,21 @@ export default (state = initialState, action) => {
     case COUNTRIES_FAILURE:
       return { ...state, countriesRsf: false, error: action.payload };
     case COUNTRY_REQUEST:
-      return { ...state, countryRsf: true };
+      return { ...state, countryStatsRsf: true };
     case COUNTRY_SUCCESS:
-      return { ...state, countryRsf: false, country: action.payload };
+      return { ...state, countryStatsRsf: false, countryStats: action.payload };
     case COUNTRY_FAILURE:
-      return { ...state, countryRsf: false, error: action.payload };
+      return { ...state, countryStatsRsf: false, error: action.payload };
     case TIMELINE_REQUEST:
-      return { ...state, timelineRsf: true };
+      return { ...state, countryTimelineRsf: true };
     case TIMELINE_SUCCESS:
-      return { ...state, timelineRsf: false, timeline: action.payload };
+      return {
+        ...state,
+        countryTimelineRsf: false,
+        countryTimeline: action.payload,
+      };
     case TIMELINE_FAILURE:
-      return { ...state, timelineRsf: false, error: action.payload };
+      return { ...state, countryTimelineRsf: false, error: action.payload };
     default:
       return state;
   }
