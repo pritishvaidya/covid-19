@@ -115,8 +115,8 @@ function fetchTimeline(id) {
         if (res.error) {
           throw res.error;
         }
-        dispatch(fetchTimelineSuccess(res));
-        return res;
+        dispatch(fetchTimelineSuccess(res.timeline));
+        return res.timeline;
       })
       .catch((error) => {
         dispatch(fetchTimelineFailure(error));

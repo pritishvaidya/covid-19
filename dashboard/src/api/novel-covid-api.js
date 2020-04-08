@@ -13,6 +13,6 @@ const timelines = () => api.get(`/v2/historical/all`);
 
 const countries = () => api.get(`countries`);
 const country = (code) => api.get(`countries/${code}`);
-const countryTimelines = (code) => api.get(`historical/${code}`);
+const countryTimelines = (code) => api.get(`/v2/historical/${code}`);
 
 export { all, timelines, countries, country, countryTimelines };

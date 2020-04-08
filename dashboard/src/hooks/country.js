@@ -19,7 +19,7 @@ function useCountry() {
 
   const dispatch = useDispatch();
   const { query } = useRouter();
-  const countryCode = "AU" || query.id[0];
+  const countryCode = query.id[0];
 
   const { countryStats, countryStatsRsf } = useSelector(
     selectCountry,
