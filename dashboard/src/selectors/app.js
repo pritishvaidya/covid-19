@@ -3,16 +3,14 @@ import { createSelector } from "reselect";
 /**
  * Direct selector to the App state domain
  */
-const selectAppDomain = state => state.app;
-
+const selectAppDomain = (state) => state.app;
 
 /**
  * Other Selectors
  */
-const selectMode = createSelector(
-  selectAppDomain,
-  substate => substate.mode
-)
+const selectMode = createSelector(selectAppDomain, (substate) => substate.mode);
 
-export { selectMode }
-export default selectAppDomain
+const selectMenu = createSelector(selectAppDomain, (substate) => substate.menu);
+
+export { selectMode, selectMenu };
+export default selectAppDomain;

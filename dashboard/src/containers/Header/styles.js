@@ -3,7 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 const styles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.main,
-    alignItems: "flex-end",
+  },
+  subRoot: {
+    justifyContent: "space-between",
   },
   menuButton: {
     padding: "12px",

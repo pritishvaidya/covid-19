@@ -1,29 +1,36 @@
-import { useState } from 'react'
-import { useMediaQuery } from '@material-ui/core'
-import { useTheme } from '@material-ui/core/styles'
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
-function useLayout () {
-  const theme = useTheme()
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
-    defaultMatches: true
-  })
-  const [openSidebar, setOpenSidebar] = useState(false)
-  const shouldOpenSidebar = isDesktop ? true : openSidebar
+import { useMediaQuery } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+
+import { setMenu } from "../redux/actions/app";
+import { DISABLED, ENABLED } from "../redux/constants/app";
+import { selectMenu } from "../selectors/app";
+
+function useLayout() {
+  const theme = useTheme();
+  const dispatch = useDispatch();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("lg"), {
+    defaultMatches: true,
+  });
+  const menu = useSelector(selectMenu, shallowEqual);
+  const activeMenu = menu === ENABLED;
+  const shouldOpenSidebar = isDesktop ? true : activeMenu;
 
   const handleSidebarOpen = () => {
-    setOpenSidebar(true)
-  }
+    dispatch(setMenu(ENABLED));
+  };
 
   const handleSidebarClose = () => {
-    setOpenSidebar(false)
-  }
+    dispatch(setMenu(DISABLED));
+  };
 
   return {
     handleSidebarOpen,
     handleSidebarClose,
     isDesktop,
     shouldOpenSidebar,
-  }
+  };
 }
 
-export default useLayout
+export default useLayout;

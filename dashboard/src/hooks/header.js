@@ -1,18 +1,30 @@
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import window from "global/window";
 
-import { selectMode } from "../selectors/app";
-import { setMode } from "../redux/actions/app";
+import { selectMenu, selectMode } from "../selectors/app";
+import { setMenu, setMode } from "../redux/actions/app";
 
-import { DARK_MODE, LIGHT_MODE } from "../redux/constants/app";
+import {
+  DARK_MODE,
+  DISABLED,
+  ENABLED,
+  LIGHT_MODE,
+} from "../redux/constants/app";
 
 function useHeader() {
   const dispatch = useDispatch();
+  const menu = useSelector(selectMenu, shallowEqual);
   const mode = useSelector(selectMode, shallowEqual);
+
   const active = mode === DARK_MODE;
+  const activeMenu = menu === ENABLED;
 
   const toggleTheme = () => {
     dispatch(setMode(mode === DARK_MODE ? LIGHT_MODE : DARK_MODE));
+  };
+
+  const toggleMenu = () => {
+    dispatch(setMenu(menu === ENABLED ? DISABLED : ENABLED));
   };
 
   const openGithub = () => {
@@ -25,7 +37,9 @@ function useHeader() {
 
   return {
     active,
+    activeMenu,
     toggleTheme,
+    toggleMenu,
     openGithub,
     openCoffee,
   };
